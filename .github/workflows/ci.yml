@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run tests
+        run: npm test
+
       - name: Run ESLint
         run: npm run lint
         continue-on-error: true
@@ -66,6 +69,7 @@ jobs:
         with:
           context: .
           push: false
+          load: true
           tags: container-pilot:test
           cache-from: type=gha
           cache-to: type=gha,mode=max
