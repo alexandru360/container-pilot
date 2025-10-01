@@ -113,7 +113,23 @@ export async function POST(request) {
       console.error('[CHECK-UPDATE] Error checking remote image:', err.message);
       console.error('[CHECK-UPDATE] Error code:', err.code);
       console.error('[CHECK-UPDATE] Error stack:', err.stack);
-      updateAvailable = 'check-failed';
+      
+      // Fallback: Use container age to provide helpful info
+      const createdAt = new Date(containerInfo.Created);
+      const now = new Date();
+      const daysSinceCreated = (now - createdAt) / (1000 * 60 * 60 * 24);
+      
+      console.log('[CHECK-UPDATE] Container age:', daysSinceCreated.toFixed(1), 'days');
+      
+      if (daysSinceCreated < 1) {
+        updateAvailable = 'recently-created';
+      } else if (daysSinceCreated < 7) {
+        updateAvailable = 'likely-current';
+      } else if (daysSinceCreated < 30) {
+        updateAvailable = 'check-recommended';
+      } else {
+        updateAvailable = 'check-recommended-old';
+      }
     }
 
     console.log('[CHECK-UPDATE] Update status:', updateAvailable);
@@ -136,10 +152,14 @@ export async function POST(request) {
         : updateAvailable === 'up-to-date'
         ? '✅ Up to date! Running latest version.'
         : updateAvailable === 'check-recommended'
-        ? '⚠️ Container is old, check recommended.'
+        ? '⚠️ Container is 1+ weeks old, manual check recommended.'
+        : updateAvailable === 'check-recommended-old'
+        ? '⚠️ Container is 1+ months old, update recommended.'
         : updateAvailable === 'recently-created'
-        ? '✅ Recently created, likely up to date.'
-        : '❓ Could not verify update status.'
+        ? '✅ Created recently (< 24h), likely up to date.'
+        : updateAvailable === 'likely-current'
+        ? '✅ Created this week, likely current.'
+        : '❓ Could not verify with registry. Check manually.'
     });
 
   } catch (error) {
