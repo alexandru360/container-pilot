@@ -98,10 +98,12 @@ export default function Home() {
     try {
       const response = await fetch('/api/config');
       const data = await response.json();
+      console.log('[CLIENT] Config loaded:', data);
+      console.log('[CLIENT] Containers:', data.containers);
       setContainers(data.containers || []);
     } catch (err) {
       setError('Failed to load configuration');
-      console.error(err);
+      console.error('[CLIENT] Failed to load config:', err);
     }
   };
 
@@ -109,9 +111,11 @@ export default function Home() {
     try {
       const response = await fetch('/api/status');
       const data = await response.json();
+      console.log('[CLIENT] Status loaded:', data);
+      console.log('[CLIENT] Container status:', data.containers);
       setContainerStatus(data.containers || []);
     } catch (err) {
-      console.error('Failed to load status:', err);
+      console.error('[CLIENT] Failed to load status:', err);
     }
   };
 
