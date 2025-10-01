@@ -27,12 +27,19 @@ export async function GET() {
     const dockerImages = process.env.DOCKER_IMAGES || '';
     const containerNames = dockerImages.split(',').map(name => name.trim()).filter(Boolean);
 
+    console.log('[STATUS] DOCKER_IMAGES:', dockerImages);
+    console.log('[STATUS] Container names:', containerNames);
+    console.log('[STATUS] DOCKER_HOST:', process.env.DOCKER_HOST);
+
     if (containerNames.length === 0) {
+      console.log('[STATUS] No containers configured');
       return NextResponse.json({ containers: [] });
     }
 
     // Get all containers
+    console.log('[STATUS] Attempting to list Docker containers...');
     const allContainers = await docker.listContainers({ all: true });
+    console.log('[STATUS] Found', allContainers.length, 'containers');
     
     // Filter and map our configured containers
     const statusList = containerNames.map(name => {
@@ -68,9 +75,16 @@ export async function GET() {
       timestamp: new Date().toISOString()
     });
   } catch (error) {
-    console.error('Error getting container status:', error);
+    console.error('[STATUS] Error getting container status:', error);
+    console.error('[STATUS] Error stack:', error.stack);
+    console.error('[STATUS] DOCKER_HOST:', process.env.DOCKER_HOST);
+    console.error('[STATUS] Socket path check:', '/var/run/docker.sock');
     return NextResponse.json(
-      { error: error.message },
+      { 
+        error: error.message,
+        code: error.code,
+        dockerHost: process.env.DOCKER_HOST || '/var/run/docker.sock'
+      },
       { status: 500 }
     );
   }
