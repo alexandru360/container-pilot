@@ -1,0 +1,37 @@
+{
+  "name": "lottery-docker-updater",
+  "version": "1.0.0",
+  "description": "Docker image updater tool for Unraid - Next.js app with Docker API integration",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "docker:build": "podman build -t lottery-docker-updater:latest .",
+    "docker:run": "podman run -d -p 3000:3000 -v /run/podman/podman.sock:/var/run/docker.sock:Z -e DOCKER_IMAGES='lottery-nginx,lottery-dotnet' --name lottery-updater lottery-docker-updater:latest"
+  },
+  "dependencies": {
+    "next": "^14.2.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@mui/material": "^5.15.15",
+    "@mui/icons-material": "^5.15.15",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "dockerode": "^4.0.2",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.3",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
