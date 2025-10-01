@@ -248,6 +248,13 @@ export default function Home() {
 
     try {
       const response = await fetch(`/api/logs?containerId=${containerId}&lines=200`);
+      
+      // Check content type to ensure we got JSON
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Server returned non-JSON response. Check server logs.');
+      }
+
       const data = await response.json();
 
       if (response.ok) {
@@ -256,6 +263,7 @@ export default function Home() {
         setContainerLogs(prev => ({ ...prev, [containerId]: `Error: ${data.error}` }));
       }
     } catch (err) {
+      console.error('[CLIENT] Failed to load logs:', err);
       setContainerLogs(prev => ({ ...prev, [containerId]: `Error: ${err.message}` }));
     } finally {
       setLoadingLogs(prev => ({ ...prev, [containerId]: false }));
@@ -344,36 +352,47 @@ export default function Home() {
                   sx={{
                     '&:hover': { bgcolor: 'action.hover' },
                     '& .MuiAccordionSummary-content': {
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      my: 1
+                      my: 1,
+                      flexDirection: { xs: 'column', md: 'row' },
+                      gap: { xs: 1, md: 2 }
                     }
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexGrow: 1 }}>
-                    <Box>
-                      <Typography variant="h6" component="div">
-                        🐋 {container.name}
-                      </Typography>
-                      <Typography variant="caption" color="text.secondary">
-                        {container.image || 'N/A'}
-                      </Typography>
-                    </Box>
+                  {/* Container Info - Always on top */}
+                  <Box sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    flexGrow: 1,
+                    width: { xs: '100%', md: 'auto' }
+                  }}>
+                    <Typography variant="h6" component="div">
+                      🐋 {container.name}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {container.image || 'N/A'}
+                    </Typography>
+                  </Box>
 
+                  {/* Status Chip and Buttons Container */}
+                  <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center',
+                    justifyContent: { xs: 'flex-end', md: 'flex-start' },
+                    gap: 2,
+                    width: { xs: '100%', md: 'auto' }
+                  }}>
                     <Chip
                       icon={getStatusIcon(container.status)}
                       label={container.status}
                       color={getStatusColor(container.status)}
                       size="small"
-                      sx={{ ml: 'auto', mr: 2 }}
                     />
-                  </Box>
 
-                  {/* Action Buttons - Stop propagation to prevent accordion toggle */}
-                  <Box 
-                    sx={{ display: 'flex', gap: 1, mr: 2 }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
+                    {/* Action Buttons - Stop propagation to prevent accordion toggle */}
+                    <Box 
+                      sx={{ display: 'flex', gap: 1 }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
                     {container.id && (
                       <>
                         {/* Check Update Button */}
@@ -429,6 +448,7 @@ export default function Home() {
                         )}
                       </>
                     )}
+                  </Box>
                   </Box>
                 </AccordionSummary>
 
