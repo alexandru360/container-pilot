@@ -23,27 +23,38 @@ function getDockerClient() {
 }
 
 export async function POST(request) {
-  console.log('[UPDATE-CONTAINER] Starting container update request');
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] [UPDATE-CONTAINER] ========== NEW REQUEST ==========`);
   
   try {
+    console.log(`[${timestamp}] [UPDATE-CONTAINER] Parsing request body...`);
     const body = await request.json();
     const { containerId } = body;
 
+    console.log(`[${timestamp}] [UPDATE-CONTAINER] Request body:`, JSON.stringify(body));
+    console.log(`[${timestamp}] [UPDATE-CONTAINER] Container ID:`, containerId);
+
     if (!containerId) {
+      console.error(`[${timestamp}] [UPDATE-CONTAINER] ERROR: No container ID provided`);
       return NextResponse.json(
         { error: 'containerId is required' },
         { status: 400 }
       );
     }
 
-    console.log(`[UPDATE-CONTAINER] Updating container: ${containerId}`);
-
+    console.log(`[${timestamp}] [UPDATE-CONTAINER] Initializing Docker client...`);
     const docker = getDockerClient();
     const io = getSocketIO();
     const clientId = Date.now().toString();
 
+    console.log(`[${timestamp}] [UPDATE-CONTAINER] Client ID: ${clientId}`);
+    console.log(`[${timestamp}] [UPDATE-CONTAINER] Socket.IO initialized:`, !!io);
+    console.log(`[${timestamp}] [UPDATE-CONTAINER] Starting background update process...`);
+
     // Start update in background
     updateContainer(docker, io, clientId, containerId);
+
+    console.log(`[${timestamp}] [UPDATE-CONTAINER] SUCCESS: Update process started`);
 
     return NextResponse.json({ 
       message: 'Update started',
@@ -52,11 +63,17 @@ export async function POST(request) {
     });
 
   } catch (error) {
-    console.error('[UPDATE-CONTAINER] Error:', error);
+    console.error(`[${timestamp}] [UPDATE-CONTAINER] ========== ERROR ==========`);
+    console.error(`[${timestamp}] [UPDATE-CONTAINER] Error name:`, error.name);
+    console.error(`[${timestamp}] [UPDATE-CONTAINER] Error message:`, error.message);
+    console.error(`[${timestamp}] [UPDATE-CONTAINER] Error stack:`, error.stack);
+    
     return NextResponse.json(
       { error: error.message },
       { status: 500 }
     );
+  } finally {
+    console.log(`[${timestamp}] [UPDATE-CONTAINER] ========== REQUEST END ==========`);
   }
 }
 

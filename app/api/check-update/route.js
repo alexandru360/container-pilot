@@ -34,26 +34,35 @@ function getDockerClient() {
 }
 
 export async function POST(request) {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] [CHECK-UPDATE] ========== NEW REQUEST ==========`);
+  
   try {
+    console.log(`[${timestamp}] [CHECK-UPDATE] Parsing request body...`);
     const { containerId } = await request.json();
 
-    console.log('[CHECK-UPDATE] Request for container:', containerId);
+    console.log(`[${timestamp}] [CHECK-UPDATE] Container ID:`, containerId);
 
     if (!containerId) {
-      console.error('[CHECK-UPDATE] No container ID provided');
+      console.error(`[${timestamp}] [CHECK-UPDATE] ERROR: No container ID provided`);
       return Response.json(
         { error: 'containerId is required' },
         { status: 400 }
       );
     }
 
+    console.log(`[${timestamp}] [CHECK-UPDATE] Initializing Docker client...`);
     const docker = getDockerClient();
+    
+    console.log(`[${timestamp}] [CHECK-UPDATE] Getting container object...`);
     const container = docker.getContainer(containerId);
     
-    console.log('[CHECK-UPDATE] Inspecting container...');
+    console.log(`[${timestamp}] [CHECK-UPDATE] Inspecting container to get image info...`);
     const containerInfo = await container.inspect();
     
     const currentImage = containerInfo.Config.Image;
+    console.log(`[${timestamp}] [CHECK-UPDATE] Current image:`, currentImage);
+    
     const imageName = currentImage.includes(':') 
       ? currentImage.split(':')[0] 
       : currentImage;
