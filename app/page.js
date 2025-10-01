@@ -34,7 +34,8 @@ import {
   Stop as StopIcon,
   RestartAlt as RestartIcon,
   ExpandMore as ExpandMoreIcon,
-  SystemUpdateAlt as UpdateCheckIcon
+  SystemUpdateAlt as UpdateCheckIcon,
+  CloudDownload as UpdateIcon
 } from '@mui/icons-material';
 import { io } from 'socket.io-client';
 
@@ -68,6 +69,7 @@ export default function Home() {
   const [loadingLogs, setLoadingLogs] = useState({});
   const [checkingUpdate, setCheckingUpdate] = useState({});
   const [updateStatus, setUpdateStatus] = useState({});
+  const [updatingContainer, setUpdatingContainer] = useState({});
 
   useEffect(() => {
     // Initialize Socket.IO
@@ -81,6 +83,27 @@ export default function Home() {
 
     newSocket.on('update-log', (data) => {
       setLogs(prev => [...prev, data]);
+    });
+
+    newSocket.on('update-complete', (data) => {
+      console.log('Update complete:', data);
+      setUpdatingContainer(prev => ({ ...prev, [data.containerId]: false }));
+      
+      if (data.success) {
+        setLogs(prev => [...prev, {
+          level: 'success',
+          message: `✅ ${data.containerName} updated successfully!`,
+          timestamp: data.timestamp
+        }]);
+        // Refresh status after update
+        setTimeout(() => loadStatus(), 2000);
+      } else {
+        setLogs(prev => [...prev, {
+          level: 'error',
+          message: `❌ Update failed: ${data.error}`,
+          timestamp: data.timestamp
+        }]);
+      }
     });
 
     newSocket.on('disconnect', () => {
@@ -231,6 +254,56 @@ export default function Home() {
       }]);
     } finally {
       setCheckingUpdate(prev => ({ ...prev, [containerId]: false }));
+    }
+  };
+
+  const handleUpdateContainer = async (containerId, containerName) => {
+    if (!containerId) {
+      setError('Container ID is required');
+      return;
+    }
+
+    // Confirm with user
+    if (!window.confirm(`Are you sure you want to update ${containerName}?\n\nThis will:\n1. Pull the latest image\n2. Stop the current container\n3. Remove the old container\n4. Create and start a new container\n\nThe process may take a few minutes.`)) {
+      return;
+    }
+
+    setUpdatingContainer(prev => ({ ...prev, [containerId]: true }));
+    setLogs(prev => [...prev, {
+      level: 'info',
+      message: `🔄 Starting update for ${containerName}...`,
+      timestamp: new Date().toISOString()
+    }]);
+
+    try {
+      const response = await fetch('/api/update-container', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ containerId })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Update failed');
+      }
+
+      setLogs(prev => [...prev, {
+        level: 'info',
+        message: `📡 Update request sent. Watch logs for progress...`,
+        timestamp: new Date().toISOString()
+      }]);
+
+    } catch (err) {
+      setError(`Failed to update ${containerName}: ${err.message}`);
+      setLogs(prev => [...prev, {
+        level: 'error',
+        message: `❌ ${containerName}: Update failed - ${err.message}`,
+        timestamp: new Date().toISOString()
+      }]);
+      setUpdatingContainer(prev => ({ ...prev, [containerId]: false }));
     }
   };
 
@@ -410,6 +483,27 @@ export default function Home() {
                             )}
                           </IconButton>
                         </Tooltip>
+
+                        {/* Update Container Button - show if update is available or recommended */}
+                        {updateStatus[container.id]?.hasUpdate && (
+                          <Tooltip title="Update container to latest image">
+                            <IconButton
+                              size="small"
+                              color="warning"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleUpdateContainer(container.id, container.name);
+                              }}
+                              disabled={updatingContainer[container.id]}
+                            >
+                              {updatingContainer[container.id] ? (
+                                <CircularProgress size={20} />
+                              ) : (
+                                <UpdateIcon />
+                              )}
+                            </IconButton>
+                          </Tooltip>
+                        )}
 
                         {/* Start/Stop Button */}
                         {container.status !== 'running' ? (
