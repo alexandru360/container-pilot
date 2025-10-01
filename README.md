@@ -240,6 +240,51 @@ npm run dev
 node server.js
 ```
 
+## 🔧 Troubleshooting
+
+### Eroare 500 pe /api/status
+
+Dacă vezi erori 500 în consolă și mesajul "No containers configured":
+
+**Verificări rapide:**
+1. Rulează script-ul de diagnosticare:
+   ```bash
+   # Linux/Mac
+   bash diagnose.sh
+   
+   # Windows
+   .\diagnose.ps1
+   ```
+
+2. Verifică variabilele de mediu:
+   ```bash
+   docker exec container-pilot sh -c 'echo $DOCKER_IMAGES'
+   ```
+
+3. Verifică dacă Docker socket este montat:
+   ```bash
+   docker exec container-pilot ls -la /var/run/docker.sock
+   ```
+
+**Cauze comune:**
+
+1. **DOCKER_IMAGES nu este setat** - Recreează containerul cu `-e DOCKER_IMAGES=container1,container2`
+2. **Docker socket nu este montat** - Adaugă `-v /var/run/docker.sock:/var/run/docker.sock`
+3. **Permisiuni insuficiente** - Adaugă `--privileged` sau configurează corect permisiunile
+
+**Documentație detaliată:**
+- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - Ghid complet de rezolvare probleme
+- [DEPLOYMENT-CHECKLIST.md](DEPLOYMENT-CHECKLIST.md) - Verificări pas cu pas
+
+### Log-uri
+
+Pentru a vedea log-urile complete:
+```bash
+docker logs -f container-pilot
+```
+
+Caută linii care încep cu `[STATUS]` pentru informații de diagnosticare.
+
 ## CI/CD
 
 Proiectul folosește GitHub Actions pentru:
