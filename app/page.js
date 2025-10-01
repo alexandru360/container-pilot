@@ -18,13 +18,10 @@ import {
   createTheme,
   CssBaseline,
   IconButton,
-  Collapse,
-  Divider,
-  Grid,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Tooltip,
   TextField
 } from '@mui/material';
 import {
@@ -36,9 +33,8 @@ import {
   PlayArrow as PlayIcon,
   Stop as StopIcon,
   RestartAlt as RestartIcon,
-  Article as LogsIcon,
   ExpandMore as ExpandMoreIcon,
-  ExpandLess as ExpandLessIcon
+  SystemUpdateAlt as UpdateCheckIcon
 } from '@mui/icons-material';
 import { io } from 'socket.io-client';
 
@@ -67,10 +63,11 @@ export default function Home() {
   const [logs, setLogs] = useState([]);
   const [error, setError] = useState(null);
   const [socket, setSocket] = useState(null);
-  const [expandedLogs, setExpandedLogs] = useState({});
+  const [expandedAccordion, setExpandedAccordion] = useState(null);
   const [containerLogs, setContainerLogs] = useState({});
   const [loadingLogs, setLoadingLogs] = useState({});
-  const [logsDialog, setLogsDialog] = useState({ open: false, containerId: null, containerName: null });
+  const [checkingUpdate, setCheckingUpdate] = useState({});
+  const [updateStatus, setUpdateStatus] = useState({});
 
   useEffect(() => {
     // Initialize Socket.IO
@@ -155,7 +152,12 @@ export default function Home() {
     }
   };
 
-  const handleControl = async (containerId, action, containerName) => {
+  const handleControl = async (containerId, action, containerName, event) => {
+    // Stop event propagation to prevent accordion toggle
+    if (event) {
+      event.stopPropagation();
+    }
+
     try {
       const response = await fetch('/api/control', {
         method: 'POST',
@@ -187,8 +189,57 @@ export default function Home() {
     }
   };
 
-  const handleViewLogs = async (containerId, containerName) => {
-    setLogsDialog({ open: true, containerId, containerName });
+  const handleCheckUpdate = async (containerId, containerName, event) => {
+    // Stop event propagation to prevent accordion toggle
+    if (event) {
+      event.stopPropagation();
+    }
+
+    setCheckingUpdate(prev => ({ ...prev, [containerId]: true }));
+
+    try {
+      const response = await fetch('/api/check-update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ containerId })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setUpdateStatus(prev => ({ ...prev, [containerId]: data }));
+        setLogs(prev => [...prev, {
+          level: data.hasUpdate ? 'warning' : 'success',
+          message: `${data.message} (${containerName})`,
+          timestamp: new Date().toISOString()
+        }]);
+      } else {
+        throw new Error(data.error || 'Check failed');
+      }
+    } catch (err) {
+      setError(`Failed to check updates for ${containerName}: ${err.message}`);
+      setLogs(prev => [...prev, {
+        level: 'error',
+        message: `❌ ${containerName}: Update check failed - ${err.message}`,
+        timestamp: new Date().toISOString()
+      }]);
+    } finally {
+      setCheckingUpdate(prev => ({ ...prev, [containerId]: false }));
+    }
+  };
+
+  const handleAccordionChange = (containerId) => (event, isExpanded) => {
+    setExpandedAccordion(isExpanded ? containerId : null);
+    
+    // Load logs when accordion expands
+    if (isExpanded && !containerLogs[containerId]) {
+      loadContainerLogs(containerId);
+    }
+  };
+
+  const loadContainerLogs = async (containerId) => {
     setLoadingLogs(prev => ({ ...prev, [containerId]: true }));
 
     try {
@@ -207,10 +258,12 @@ export default function Home() {
     }
   };
 
-  const handleRefreshLogs = () => {
-    if (logsDialog.containerId) {
-      handleViewLogs(logsDialog.containerId, logsDialog.containerName);
+  const handleRefreshLogs = (containerId, event) => {
+    // Stop event propagation to prevent accordion toggle
+    if (event) {
+      event.stopPropagation();
     }
+    loadContainerLogs(containerId);
   };
 
   const getStatusColor = (status) => {
@@ -272,91 +325,197 @@ export default function Home() {
           )}
         </Paper>
 
-        {/* Container Status Cards */}
+        {/* Container Status with Accordion */}
         {containerStatus.length > 0 && (
-          <Grid container spacing={2} sx={{ mb: 3 }}>
+          <Box sx={{ mb: 3 }}>
             {containerStatus.map((container) => (
-              <Grid item xs={12} md={6} key={container.name}>
-                <Card elevation={2}>
-                  <CardContent>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <Box sx={{ flexGrow: 1 }}>
-                        <Typography variant="h6" component="div">
-                          {container.name}
-                        </Typography>
-                        <Typography variant="caption" color="text.secondary">
-                          {container.image || 'N/A'}
-                        </Typography>
-                      </Box>
-                      <Chip
-                        icon={getStatusIcon(container.status)}
-                        label={container.status}
-                        color={getStatusColor(container.status)}
-                        size="small"
-                      />
+              <Accordion
+                key={container.name}
+                expanded={expandedAccordion === container.id}
+                onChange={handleAccordionChange(container.id)}
+                sx={{ mb: 1 }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  sx={{
+                    '&:hover': { bgcolor: 'action.hover' },
+                    '& .MuiAccordionSummary-content': {
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      my: 1
+                    }
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexGrow: 1 }}>
+                    <Box>
+                      <Typography variant="h6" component="div">
+                        🐋 {container.name}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {container.image || 'N/A'}
+                      </Typography>
                     </Box>
 
+                    <Chip
+                      icon={getStatusIcon(container.status)}
+                      label={container.status}
+                      color={getStatusColor(container.status)}
+                      size="small"
+                      sx={{ ml: 'auto', mr: 2 }}
+                    />
+                  </Box>
+
+                  {/* Action Buttons - Stop propagation to prevent accordion toggle */}
+                  <Box 
+                    sx={{ display: 'flex', gap: 1, mr: 2 }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     {container.id && (
                       <>
-                        <Typography variant="caption" display="block" color="text.secondary" gutterBottom>
-                          State: {container.state}
-                        </Typography>
-
-                        <Box sx={{ display: 'flex', gap: 1, mt: 2 }}>
-                          {container.status !== 'running' && (
-                            <Button
-                              size="small"
-                              variant="contained"
-                              color="success"
-                              startIcon={<PlayIcon />}
-                              onClick={() => handleControl(container.id, 'start', container.name)}
-                            >
-                              Start
-                            </Button>
-                          )}
-                          {container.status === 'running' && (
-                            <>
-                              <Button
-                                size="small"
-                                variant="contained"
-                                color="error"
-                                startIcon={<StopIcon />}
-                                onClick={() => handleControl(container.id, 'stop', container.name)}
-                              >
-                                Stop
-                              </Button>
-                              <Button
-                                size="small"
-                                variant="outlined"
-                                startIcon={<RestartIcon />}
-                                onClick={() => handleControl(container.id, 'restart', container.name)}
-                              >
-                                Restart
-                              </Button>
-                            </>
-                          )}
-                          <Button
+                        {/* Check Update Button */}
+                        <Tooltip title="Check for updates">
+                          <IconButton
                             size="small"
-                            variant="outlined"
-                            startIcon={<LogsIcon />}
-                            onClick={() => handleViewLogs(container.id, container.name)}
+                            color="info"
+                            onClick={(e) => handleCheckUpdate(container.id, container.name, e)}
+                            disabled={checkingUpdate[container.id]}
                           >
-                            Logs
-                          </Button>
-                        </Box>
+                            {checkingUpdate[container.id] ? (
+                              <CircularProgress size={20} />
+                            ) : (
+                              <UpdateCheckIcon />
+                            )}
+                          </IconButton>
+                        </Tooltip>
+
+                        {/* Start/Stop Button */}
+                        {container.status !== 'running' ? (
+                          <Tooltip title="Start container">
+                            <IconButton
+                              size="small"
+                              color="success"
+                              onClick={(e) => handleControl(container.id, 'start', container.name, e)}
+                            >
+                              <PlayIcon />
+                            </IconButton>
+                          </Tooltip>
+                        ) : (
+                          <Tooltip title="Stop container">
+                            <IconButton
+                              size="small"
+                              color="error"
+                              onClick={(e) => handleControl(container.id, 'stop', container.name, e)}
+                            >
+                              <StopIcon />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+
+                        {/* Restart Button - only show when running */}
+                        {container.status === 'running' && (
+                          <Tooltip title="Restart container">
+                            <IconButton
+                              size="small"
+                              color="primary"
+                              onClick={(e) => handleControl(container.id, 'restart', container.name, e)}
+                            >
+                              <RestartIcon />
+                            </IconButton>
+                          </Tooltip>
+                        )}
                       </>
                     )}
+                  </Box>
+                </AccordionSummary>
 
-                    {!container.id && (
-                      <Alert severity="warning" sx={{ mt: 1 }}>
-                        Container not found
-                      </Alert>
-                    )}
-                  </CardContent>
-                </Card>
-              </Grid>
+                <AccordionDetails>
+                  {!container.id ? (
+                    <Alert severity="warning">
+                      Container not found
+                    </Alert>
+                  ) : (
+                    <Box>
+                      {/* Container Info */}
+                      <Box sx={{ mb: 2 }}>
+                        <Typography variant="caption" display="block" color="text.secondary">
+                          <strong>ID:</strong> {container.id.substring(0, 12)}
+                        </Typography>
+                        <Typography variant="caption" display="block" color="text.secondary">
+                          <strong>State:</strong> {container.state}
+                        </Typography>
+                        <Typography variant="caption" display="block" color="text.secondary">
+                          <strong>Created:</strong> {new Date(container.created * 1000).toLocaleString()}
+                        </Typography>
+                        {container.ports && container.ports.length > 0 && (
+                          <Typography variant="caption" display="block" color="text.secondary">
+                            <strong>Ports:</strong> {container.ports.map(p => 
+                              `${p.PublicPort || ''}:${p.PrivatePort}/${p.Type}`
+                            ).join(', ')}
+                          </Typography>
+                        )}
+                      </Box>
+
+                      {/* Update Status */}
+                      {updateStatus[container.id] && (
+                        <Alert 
+                          severity={
+                            updateStatus[container.id].hasUpdate ? 'warning' : 
+                            updateStatus[container.id].updateAvailable === 'up-to-date' ? 'success' : 
+                            'info'
+                          }
+                          sx={{ mb: 2 }}
+                        >
+                          <Typography variant="body2">
+                            {updateStatus[container.id].message}
+                          </Typography>
+                          <Typography variant="caption" display="block">
+                            Current Image ID: {updateStatus[container.id].currentImageId}
+                          </Typography>
+                        </Alert>
+                      )}
+
+                      {/* Container Logs */}
+                      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+                        <Typography variant="subtitle2">
+                          📋 Container Logs
+                        </Typography>
+                        <IconButton 
+                          size="small" 
+                          onClick={(e) => handleRefreshLogs(container.id, e)}
+                          disabled={loadingLogs[container.id]}
+                        >
+                          <RefreshIcon />
+                        </IconButton>
+                      </Box>
+
+                      {loadingLogs[container.id] ? (
+                        <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+                          <CircularProgress />
+                        </Box>
+                      ) : (
+                        <TextField
+                          multiline
+                          fullWidth
+                          value={containerLogs[container.id] || 'No logs available. Click refresh to load.'}
+                          InputProps={{
+                            readOnly: true,
+                            sx: {
+                              fontFamily: 'monospace',
+                              fontSize: '0.75rem',
+                              bgcolor: '#1e1e1e',
+                              color: '#d4d4d4'
+                            }
+                          }}
+                          minRows={10}
+                          maxRows={20}
+                        />
+                      )}
+                    </Box>
+                  )}
+                </AccordionDetails>
+              </Accordion>
             ))}
-          </Grid>
+          </Box>
         )}
 
         {/* Update All Button */}
@@ -414,54 +573,6 @@ export default function Home() {
             </List>
           </Paper>
         )}
-
-        {/* Logs Dialog */}
-        <Dialog
-          open={logsDialog.open}
-          onClose={() => setLogsDialog({ open: false, containerId: null, containerName: null })}
-          maxWidth="md"
-          fullWidth
-        >
-          <DialogTitle>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Typography variant="h6">
-                📋 Logs: {logsDialog.containerName}
-              </Typography>
-              <IconButton onClick={handleRefreshLogs} size="small">
-                <RefreshIcon />
-              </IconButton>
-            </Box>
-          </DialogTitle>
-          <DialogContent dividers>
-            {loadingLogs[logsDialog.containerId] ? (
-              <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
-                <CircularProgress />
-              </Box>
-            ) : (
-              <TextField
-                multiline
-                fullWidth
-                value={containerLogs[logsDialog.containerId] || 'No logs available'}
-                InputProps={{
-                  readOnly: true,
-                  sx: {
-                    fontFamily: 'monospace',
-                    fontSize: '0.75rem',
-                    bgcolor: '#1e1e1e',
-                    color: '#d4d4d4'
-                  }
-                }}
-                minRows={20}
-                maxRows={30}
-              />
-            )}
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setLogsDialog({ open: false, containerId: null, containerName: null })}>
-              Close
-            </Button>
-          </DialogActions>
-        </Dialog>
       </Container>
     </ThemeProvider>
   );

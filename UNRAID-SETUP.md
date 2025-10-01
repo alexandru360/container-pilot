@@ -1,26 +1,27 @@
-# Unraid Docker Template pentru lottery-tools
+# Unraid Docker Template pentru Container Pilot
 
 ## Template XML pentru Unraid Community Apps
 
 ```xml
 <?xml version="1.0"?>
 <Container version="2">
-  <Name>lottery-tools</Name>
-  <Repository>ghcr.io/alexandru360/lottery-docker-updater:latest</Repository>
+  <Name>container-pilot</Name>
+  <Repository>ghcr.io/alexandru360/container-pilot:latest</Repository>
   <Registry>https://ghcr.io/</Registry>
   <Network>bridge</Network>
   <MyIP/>
   <Shell>sh</Shell>
   <Privileged>true</Privileged>
-  <Support>https://github.com/alexandru360/lottery-tools</Support>
-  <Project>https://github.com/alexandru360/lottery-tools</Project>
+  <Support>https://github.com/alexandru360/container-pilot</Support>
+  <Project>https://github.com/alexandru360/container-pilot</Project>
   <Overview>
-    Docker Container Manager - Update, start, stop, and view logs of your Docker containers with a beautiful web interface.
+    Container Pilot - Your co-pilot for Docker container management.
     
     Features:
     - Real-time container status monitoring
     - Start/Stop/Restart containers
     - View container logs
+    - Check for updates without downloading
     - Update containers with one click
     - Live update progress via WebSocket
     - Mobile-friendly interface
@@ -53,16 +54,16 @@
 
 ```bash
 docker run -d \
-  --name='lottery-tools' \
+  --name='container-pilot' \
   --net='bridge' \
   --privileged \
   -e TZ="Europe/Athens" \
   -e HOST_OS="Unraid" \
-  -e 'DOCKER_IMAGES'='lottery-dotnet,lottery-nginx,lottery-tools' \
+  -e 'DOCKER_IMAGES'='lottery-dotnet,lottery-nginx,container-pilot' \
   -e 'NODE_ENV'='production' \
   -p '3000:3000/tcp' \
   -v '/var/run/docker.sock':'/var/run/docker.sock':'rw' \
-  'ghcr.io/alexandru360/lottery-docker-updater:latest'
+  'ghcr.io/alexandru360/container-pilot:latest'
 ```
 
 ### Metoda 2: Cu Docker Remote API
@@ -74,15 +75,15 @@ docker run -d \
 
 ```bash
 docker run -d \
-  --name='lottery-tools' \
+  --name='container-pilot' \
   --net='bridge' \
   -e TZ="Europe/Athens" \
   -e HOST_OS="Unraid" \
-  -e 'DOCKER_IMAGES'='lottery-dotnet,lottery-nginx,lottery-tools' \
+  -e 'DOCKER_IMAGES'='lottery-dotnet,lottery-nginx,container-pilot' \
   -e 'DOCKER_HOST'='http://192.168.1.10:2375' \
   -e 'NODE_ENV'='production' \
   -p '3000:3000/tcp' \
-  'ghcr.io/alexandru360/lottery-docker-updater:latest'
+  'ghcr.io/alexandru360/container-pilot:latest'
 ```
 
 **⚠️ Înlocuiește `192.168.1.10` cu IP-ul real al serverului tău Unraid!**
@@ -115,5 +116,5 @@ docker run -d \
 ## Suport
 
 Pentru probleme sau întrebări:
-- GitHub Issues: https://github.com/alexandru360/lottery-tools/issues
-- Documentation: https://github.com/alexandru360/lottery-tools/blob/main/README.md
+- GitHub Issues: https://github.com/alexandru360/container-pilot/issues
+- Documentation: https://github.com/alexandru360/container-pilot/blob/main/README.md

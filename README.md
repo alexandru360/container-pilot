@@ -1,16 +1,35 @@
-# Docker Container Updater
+# Container Pilot 🐋✈️
 
-[![Build and Push Docker image](https://github.com/alexandru360/lottery-tools/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/alexandru360/lottery-tools/actions/workflows/docker-publish.yml)
-[![CI](https://github.com/alexandru360/lottery-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/alexandru360/lottery-tools/actions/workflows/ci.yml)
+[![Build and Push Docker image](https://github.com/alexandru360/container-pilot/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/alexandru360/container-pilot/actions/workflows/docker-publish.yml)
+[![CI](https://github.com/alexandru360/container-pilot/actions/workflows/ci.yml/badge.svg)](https://github.com/alexandru360/container-pilot/actions/workflows/ci.yml)
 
-Aplicație Next.js pentru actualizarea containerelor Docker cu un singur click.
+**Your co-pilot for Docker container management** - Aplicație Next.js pentru management complet al containerelor Docker cu interfață modernă și intuitivă.
 
-## Caracteristici
+## 🚀 Caracteristici
 
-- 🔄 Update automat containere Docker
-- 📊 Logs în timp real prin WebSocket
-- 🎨 Interface modern cu Material-UI
-- 🐋 Suport pentru Docker local sau remote
+- 🔄 **Update containere** - Actualizează toate containerele cu un singur click
+- ✅ **Check for updates** - Verifică dacă există versiuni noi pentru fiecare container
+- ▶️ **Start/Stop/Restart** - Control complet al containerelor
+- � **Container logs** - Vezi log-urile în timp real pentru fiecare container
+- 📊 **Status monitoring** - Monitorizează starea containerelor (running/stopped/paused)
+- 🎯 **Accordion interface** - Click pe numele containerului pentru detalii și log-uri
+- 🔌 **Real-time updates** - WebSocket pentru logs în timp real
+- 🎨 **Material-UI** - Interface modernă și responsivă
+- 🐋 **Suport flexibil** - Docker local (socket) sau remote (HTTP/HTTPS)
+
+## 📸 Preview
+
+### Interfața principală cu Accordion
+- **Header accordion**: Butonele Check Update, Start/Stop, Restart
+- **Click pe nume**: Expand pentru a vedea log-urile și detalii
+- **Status chips**: Culori diferite pentru running (verde), stopped (roșu), paused (portocaliu)
+- **Activity Logs**: Istoric cu toate operațiunile efectuate
+
+### Butoane disponibile (în header-ul acordeonului)
+1. **🔍 Check Update** - Verifică dacă există versiune nouă
+2. **▶️ Start** - Pornește containerul (doar dacă e oprit)
+3. **⏹️ Stop** - Oprește containerul (doar dacă e pornit)
+4. **🔄 Restart** - Restart container (doar dacă e pornit)
 
 ## Variabile de Mediu
 
@@ -47,8 +66,8 @@ Specifică engine-ul Docker care administrează containerele.
 #### Metoda 1: Cu Docker Socket (Recomandat)
 
 ```
-Name: lottery-tools
-Repository: ghcr.io/alexandru360/lottery-docker-updater:latest
+Name: container-pilot
+Repository: ghcr.io/alexandru360/container-pilot:latest
 WebUI: http://[IP]:[PORT:3000]
 Port: 3000 -> 3000 (TCP)
 
@@ -115,14 +134,19 @@ Folosește **`production`** (lowercase), NU `Production`! Next.js necesită exac
 ## Rulare Locală cu Podman
 
 ```bash
-podman build -t lottery-docker-updater:latest .
+podman build -t container-pilot:latest .
 
 podman run -d \
   -p 3000:3000 \
+  --privileged \
+  -v /run/podman/podman.sock:/var/run/docker.sock:Z \
+  -e "DOCKER_IMAGES=container1,container2,container3" \
+  -e "NODE_ENV=production" \
+  --name container-pilot \
+  container-pilot:latest
+```
   -v /run/podman/podman.sock:/var/run/docker.sock:Z \
   -e "DOCKER_IMAGES=lottery-nginx,lottery-dotnet" \
-  --name lottery-updater \
-  lottery-docker-updater:latest
 ```
 
 ## Rulare cu Docker Compose
@@ -131,14 +155,71 @@ podman run -d \
 docker-compose up -d
 ```
 
+## 📡 API Endpoints
+
+### GET `/api/config`
+Returnează lista containerelor configurate.
+
+### GET `/api/status`
+Returnează status-ul tuturor containerelor (running/stopped/paused/not-found).
+
+### POST `/api/check-update`
+Verifică dacă există update pentru un container specific.
+```json
+{
+  "containerId": "abc123"
+}
+```
+
+**Răspuns:**
+```json
+{
+  "success": true,
+  "containerId": "abc123",
+  "containerName": "my-app",
+  "currentImage": "my-image:latest",
+  "hasUpdate": true,
+  "updateAvailable": "available",
+  "message": "🆕 Update available! New version found."
+}
+```
+
+**Statusuri posibile:**
+- `available` - Update disponibil
+- `up-to-date` - La zi cu ultima versiune
+- `check-recommended` - Container vechi, verificare recomandată
+- `recently-created` - Container recent creat
+- `check-failed` - Nu s-a putut verifica
+
+### POST `/api/control`
+Start/Stop/Restart container.
+```json
+{
+  "containerId": "abc123",
+  "action": "start" // sau "stop", "restart"
+}
+```
+
+### GET `/api/logs`
+Returnează log-urile unui container.
+```
+/api/logs?containerId=abc123&lines=200
+```
+
+### POST `/api/update`
+Trigger update pentru toate containerele configurate (pull, stop, remove, recreate).
+
+### GET `/api/health`
+Health check endpoint.
+
 ## Pull from GitHub Container Registry
 
 ```bash
 # Latest version
-docker pull ghcr.io/alexandru360/lottery-docker-updater:latest
+docker pull ghcr.io/alexandru360/container-pilot:latest
 
 # Specific version
-docker pull ghcr.io/alexandru360/lottery-docker-updater:1.0.0
+docker pull ghcr.io/alexandru360/container-pilot:1.1.0
 ```
 
 ## Build

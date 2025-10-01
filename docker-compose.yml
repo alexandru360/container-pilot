@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  docker-updater:
+  container-pilot:
     build: .
-    container_name: lottery-docker-updater
+    container_name: container-pilot
     ports:
       - "3000:3000"
     volumes:

@@ -1,15 +1,15 @@
 {
-  "name": "lottery-docker-updater",
-  "version": "1.0.0",
-  "description": "Docker image updater tool for Unraid - Next.js app with Docker API integration",
+  "name": "container-pilot",
+  "version": "1.1.0",
+  "description": "Container Pilot - Your co-pilot for Docker container management with status monitoring, start/stop controls, update checks, and real-time logs",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "docker:build": "podman build -t lottery-docker-updater:latest .",
-    "docker:run": "podman run -d -p 3000:3000 -v /run/podman/podman.sock:/var/run/docker.sock:Z -e DOCKER_IMAGES='lottery-nginx,lottery-dotnet' --name lottery-updater lottery-docker-updater:latest"
+    "docker:build": "podman build -t container-pilot:latest .",
+    "docker:run": "podman run -d -p 3000:3000 -v /run/podman/podman.sock:/var/run/docker.sock:Z -e DOCKER_IMAGES='lottery-nginx,lottery-dotnet' --name container-pilot container-pilot:latest"
   },
   "dependencies": {
     "next": "^14.2.3",
