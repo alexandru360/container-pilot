@@ -1,6 +1,6 @@
 # GitHub Actions Workflows
 
-This directory contains the CI/CD workflows for the Lottery Docker Updater project.
+This directory contains the CI/CD workflows for the Container Pilot project.
 
 ## Workflows
 
@@ -14,7 +14,7 @@ This directory contains the CI/CD workflows for the Lottery Docker Updater proje
 
 **Image location:**
 ```bash
-ghcr.io/alexandru360/lottery-docker-updater:latest
+ghcr.io/alexandru360/container-pilot:latest
 ```
 
 ### 2. **ci.yml** - Continuous Integration
@@ -58,29 +58,29 @@ The workflows require:
 
 ### Deploy latest version:
 ```bash
-docker pull ghcr.io/alexandru360/lottery-docker-updater:latest
+docker pull ghcr.io/alexandru360/container-pilot:latest
 ```
 
 ### Deploy specific version:
 ```bash
-docker pull ghcr.io/alexandru360/lottery-docker-updater:1.0.0
+docker pull ghcr.io/alexandru360/container-pilot:1.0.0
 ```
 
 ### Deploy specific commit:
 ```bash
-docker pull ghcr.io/alexandru360/lottery-docker-updater:sha-abc1234
+docker pull ghcr.io/alexandru360/container-pilot:sha-abc1234
 ```
 
 ## Local Testing
 
 Before pushing, test the Docker build locally:
 ```bash
-docker build -t lottery-docker-updater:test .
-docker run --rm lottery-docker-updater:test node --version
+docker build -t container-pilot:test .
+docker run --rm container-pilot:test node --version
 ```
 
 Or with Podman:
 ```bash
-podman build -t lottery-docker-updater:test .
-podman run --rm lottery-docker-updater:test node --version
+podman build -t container-pilot:test .
+podman run --rm container-pilot:test node --version
 ```

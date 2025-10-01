@@ -46,14 +46,14 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/${{ github.repository_owner }}/lottery-docker-updater:${{ steps.version.outputs.version }}
-            ghcr.io/${{ github.repository_owner }}/lottery-docker-updater:${{ steps.version.outputs.version_number }}
-            ghcr.io/${{ github.repository_owner }}/lottery-docker-updater:latest
+            ghcr.io/${{ github.repository_owner }}/container-pilot:${{ steps.version.outputs.version }}
+            ghcr.io/${{ github.repository_owner }}/container-pilot:${{ steps.version.outputs.version_number }}
+            ghcr.io/${{ github.repository_owner }}/container-pilot:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
           labels: |
-            org.opencontainers.image.title=Lottery Docker Updater
-            org.opencontainers.image.description=Next.js application for updating Docker containers
+            org.opencontainers.image.title=Container Pilot
+            org.opencontainers.image.description=Your co-pilot for Docker container management with status monitoring, update checks, and real-time logs
             org.opencontainers.image.version=${{ steps.version.outputs.version_number }}
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
             org.opencontainers.image.revision=${{ github.sha }}
@@ -67,7 +67,7 @@ jobs:
           body: |
             ## Docker Image
             ```bash
-            docker pull ghcr.io/${{ github.repository_owner }}/lottery-docker-updater:${{ steps.version.outputs.version_number }}
+            docker pull ghcr.io/${{ github.repository_owner }}/container-pilot:${{ steps.version.outputs.version_number }}
             ```
 
             ## What's Changed
@@ -85,5 +85,5 @@ jobs:
           echo "### Release ${{ steps.version.outputs.version }} Published! 🚀" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Docker Images:**" >> $GITHUB_STEP_SUMMARY
-          echo "- \`ghcr.io/${{ github.repository_owner }}/lottery-docker-updater:${{ steps.version.outputs.version_number }}\`" >> $GITHUB_STEP_SUMMARY
-          echo "- \`ghcr.io/${{ github.repository_owner }}/lottery-docker-updater:latest\`" >> $GITHUB_STEP_SUMMARY
+          echo "- \`ghcr.io/${{ github.repository_owner }}/container-pilot:${{ steps.version.outputs.version_number }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- \`ghcr.io/${{ github.repository_owner }}/container-pilot:latest\`" >> $GITHUB_STEP_SUMMARY
