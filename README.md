@@ -44,20 +44,65 @@ Specifică engine-ul Docker care administrează containerele.
 
 ### Template Container Unraid
 
+#### Metoda 1: Cu Docker Socket (Recomandat)
+
 ```
-Name: Docker Updater
-Repository: ghcr.io/username/lottery-docker-updater:latest
-Port: 3000 -> 3000
-Path: /var/run/docker.sock -> /var/run/docker.sock
+Name: lottery-tools
+Repository: ghcr.io/alexandru360/lottery-docker-updater:latest
+WebUI: http://[IP]:[PORT:3000]
+Port: 3000 -> 3000 (TCP)
+
+Path #1:
+  Name: Docker socket
+  Container Path: /var/run/docker.sock
+  Host Path: /var/run/docker.sock
+  Access Mode: Read/Write
+  Description: This is needed for Docker management
 
 Environment Variables:
-  - DOCKER_IMAGES: lottery-nginx,lottery-dotnet
-  - DOCKER_HOST: http://192.168.1.10:2375  (IP-ul serverului Unraid)
+  - DOCKER_IMAGES: lottery-nginx,lottery-dotnet,lottery-tools
+  - NODE_ENV: production  (lowercase!)
+  - TZ: Europe/Athens
+
+Extra Parameters:
+  --privileged
 ```
+
+#### Metoda 2: Cu Docker Remote API
+
+Dacă socket-ul nu funcționează, activează Docker Remote API:
+
+**Pași:**
+1. Mergi la **Settings** → **Docker** în Unraid
+2. Activează **Enable Remote API**
+3. Setează portul (default: 2375)
+4. Restart Docker service
+5. În template, NU adăuga path-ul pentru socket
+6. Adaugă variabila: `DOCKER_HOST=http://SERVER_IP:2375`
+
+```
+Environment Variables:
+  - DOCKER_IMAGES: lottery-nginx,lottery-dotnet,lottery-tools
+  - DOCKER_HOST: http://192.168.1.10:2375  (Înlocuiește cu IP-ul tău Unraid)
+  - NODE_ENV: production
+```
+
+### ⚠️ Notă Importantă despre NODE_ENV
+
+Folosește **`production`** (lowercase), NU `Production`! Next.js necesită exact această valoare.
 
 ### De ce DOCKER_HOST?
 
-În Unraid, containerul nu poate reporni alte containere direct prin socket-ul local (`/var/run/docker.sock`) din cauza restricțiilor de permisiuni. Trebuie să specifici IP-ul și portul serverului Unraid unde rulează Docker daemon-ul.
+În Unraid, containerul poate avea restricții de permisiuni pentru socket-ul Docker local. Ai două opțiuni:
+
+1. **Socket Mount + --privileged** (mai simplu, mai rapid)
+   - Montează `/var/run/docker.sock`
+   - Adaugă `--privileged` în Extra Parameters
+   
+2. **Docker Remote API** (mai sigur pentru production)
+   - Activează Remote API în Settings
+   - Folosește `DOCKER_HOST=http://IP:2375`
+   - Nu necesită `--privileged`
 
 **Pași pentru activarea Docker Remote API în Unraid:**
 

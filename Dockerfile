@@ -37,8 +37,14 @@ RUN chown nextjs:nodejs .next
 # Automatically leverage output traces to reduce image size
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Copy app directory (needed for Next.js to find pages/app)
+COPY --from=builder --chown=nextjs:nodejs /app/app ./app
+
+# Copy custom server and lib
 COPY --from=builder --chown=nextjs:nodejs /app/server.js ./
 COPY --from=builder --chown=nextjs:nodejs /app/lib ./lib
+
 # Copy node_modules to ensure all dependencies are available
 COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
 
