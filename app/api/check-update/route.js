@@ -37,7 +37,10 @@ export async function POST(request) {
   try {
     const { containerId } = await request.json();
 
+    console.log('[CHECK-UPDATE] Request for container:', containerId);
+
     if (!containerId) {
+      console.error('[CHECK-UPDATE] No container ID provided');
       return Response.json(
         { error: 'containerId is required' },
         { status: 400 }
@@ -46,6 +49,8 @@ export async function POST(request) {
 
     const docker = getDockerClient();
     const container = docker.getContainer(containerId);
+    
+    console.log('[CHECK-UPDATE] Inspecting container...');
     const containerInfo = await container.inspect();
     
     const currentImage = containerInfo.Config.Image;
@@ -72,15 +77,21 @@ export async function POST(request) {
 
     try {
       // Get local image info
+      console.log('[CHECK-UPDATE] Getting local image info...');
       const localImageInfo = await docker.getImage(currentImageId).inspect();
       localDigest = localImageInfo.RepoDigests && localImageInfo.RepoDigests.length > 0 
         ? localImageInfo.RepoDigests[0] 
         : null;
 
+      console.log('[CHECK-UPDATE] Local digest:', localDigest);
+
       // Try to get remote image info by pulling manifest (lightweight)
       // This is a simple check - in production you'd want to use registry API
+      console.log('[CHECK-UPDATE] Checking remote image distribution...');
       const distribution = await image.distribution();
       remoteDigest = distribution.Descriptor?.digest || null;
+
+      console.log('[CHECK-UPDATE] Remote digest:', remoteDigest);
 
       if (localDigest && remoteDigest) {
         hasUpdate = !localDigest.includes(remoteDigest);
@@ -99,9 +110,13 @@ export async function POST(request) {
         }
       }
     } catch (err) {
-      console.error('Error checking remote image:', err.message);
+      console.error('[CHECK-UPDATE] Error checking remote image:', err.message);
+      console.error('[CHECK-UPDATE] Error code:', err.code);
+      console.error('[CHECK-UPDATE] Error stack:', err.stack);
       updateAvailable = 'check-failed';
     }
+
+    console.log('[CHECK-UPDATE] Update status:', updateAvailable);
 
     return Response.json({
       success: true,
@@ -128,11 +143,15 @@ export async function POST(request) {
     });
 
   } catch (error) {
-    console.error('Check update error:', error);
+    console.error('[CHECK-UPDATE] Fatal error:', error);
+    console.error('[CHECK-UPDATE] Error message:', error.message);
+    console.error('[CHECK-UPDATE] Error code:', error.code);
+    console.error('[CHECK-UPDATE] Error stack:', error.stack);
     return Response.json(
       { 
         error: 'Failed to check for updates',
-        details: error.message 
+        details: error.message,
+        code: error.code
       },
       { status: 500 }
     );
