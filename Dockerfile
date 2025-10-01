@@ -41,12 +41,15 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 # Copy public directory
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
-# Copy custom server and socket.io lib (these are NOT in standalone)
+# Copy app directory with API routes (needed for runtime)
+COPY --from=builder --chown=nextjs:nodejs /app/app ./app
+
+# Copy custom server and socket.io lib
 COPY --from=builder --chown=nextjs:nodejs /app/server.js ./server.js
 COPY --from=builder --chown=nextjs:nodejs /app/lib ./lib
 
-# Note: Do NOT copy /app manually - it's already in .next/standalone
-# Copying it manually will overwrite Next.js built routes
+# Copy node_modules - needed for webpack and other dependencies
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
 
 # Run as root to access Docker socket
 # USER nextjs
