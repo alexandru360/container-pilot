@@ -36,15 +36,15 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       
       - name: 📦 Restore .NET dependencies
-        run: dotnet restore
+        run: dotnet restore ContainerPilot.sln
         working-directory: ./src/ContainerPilot.Server
       
       - name: 🔨 Build .NET project
-        run: dotnet build -c Release --no-restore
+        run: dotnet build ContainerPilot.sln -c Release --no-restore
         working-directory: ./src/ContainerPilot.Server
       
       - name: 📤 Publish .NET project
-        run: dotnet publish -c Release -o ./bin/Release/net8.0/publish --no-build
+        run: dotnet publish ContainerPilot.Server.csproj -c Release -o ./bin/Release/net8.0/publish --no-build
         working-directory: ./src/ContainerPilot.Server
       
       # ----- Frontend Build -----
