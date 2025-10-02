@@ -1,11 +1,10 @@
 # Container Pilot 🚀
 
-[![CI Pipeline](https://github.com/alexandru360/container-pilot/actions/workflows/ci.yml/badge.svg)](https://github.com/alexandru360/container-pilot/actions/workflows/ci.yml)
-[![Docker Build](https://github.com/alexandru360/container-pilot/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/alexandru360/container-pilot/actions/workflows/docker-publish.yml)
-[![Release](https://github.com/alexandru360/container-pilot/actions/workflows/release.yml/badge.svg)](https://github.com/alexandru360/container-pilot/actions/workflows/release.yml)
-[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/alexandru360/container-pilot/actions/workflows/ci.yml)
+[![CI/CD Pipeline](https://github.com/alexandru360/container-pilot/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/alexandru360/container-pilot/actions/workflows/ci-cd.yml)
+[![Docker Image](https://img.shields.io/badge/docker-ghcr.io-blue)](https://github.com/alexandru360/container-pilot/pkgs/container/container-pilot)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-A modern, real-time Docker container management web interface with live updates, logs streaming, and container lifecycle control.
+A modern ASP.NET Core + React Docker container management web interface with real-time updates, logs streaming, and container lifecycle control.
 
 ## 📦 Docker Image
 
@@ -17,6 +16,7 @@ docker pull ghcr.io/alexandru360/container-pilot:latest
 **GitHub Container Registry:**
 - 🐳 [View on GitHub Packages](https://github.com/alexandru360/container-pilot/pkgs/container/container-pilot)
 - 📋 [All Available Tags](https://github.com/alexandru360/container-pilot/pkgs/container/container-pilot/versions)
+- 🔗 **Direct Link:** https://github.com/alexandru360/container-pilot/pkgs/container/container-pilot
 
 ## ✨ Features
 
