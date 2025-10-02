@@ -67,7 +67,7 @@ jobs:
       - name: 📁 Copy frontend to wwwroot
         run: |
           mkdir -p ./src/ContainerPilot.Server/bin/Release/net8.0/publish/wwwroot
-          cp -r ./src/ContainerPilot.Server/src/ContainerPilot.Server.Client/dist/* ./src/ContainerPilot.Server/bin/Release/net8.0/publish/wwwroot/
+          cp -r ./src/ContainerPilot.Server/src/ContainerPilot.Web.Client/dist/* ./src/ContainerPilot.Server/bin/Release/net8.0/publish/wwwroot/
       
       # ----- Upload artifacts pentru stage-urile următoare -----
       - name: 📤 Upload build artifacts
