@@ -1,63 +1,57 @@
-# Next.js Docker image for Unraid Docker Updater Tool
-FROM node:20-alpine AS base
+# Stage 1: Build React Frontend
+FROM node:20-alpine AS frontend-build
+WORKDIR /app/frontend
 
-# Install dependencies only when needed
-FROM base AS deps
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-COPY package*.json ./
+# Copy frontend package files
+COPY src/ContainerPilot.Server/src/ContainerPilot.Web.Client/package*.json ./
 RUN npm ci
 
-# Rebuild the source code only when needed
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-
+# Copy frontend source and build
+COPY src/ContainerPilot.Server/src/ContainerPilot.Web.Client/ ./
 RUN npm run build
 
-# Production image, copy all the files and run next
-FROM base AS runner
+# Stage 2: Build .NET Backend
+FROM mcr.microsoft.com/dotnet/sdk:8.0.404-jammy AS backend-build
 WORKDIR /app
 
-ENV NODE_ENV=production
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
+# Copy csproj and restore dependencies
+COPY src/ContainerPilot.Server/ContainerPilot.sln ./
+COPY src/ContainerPilot.Server/*.csproj ./
+RUN dotnet restore
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# Copy all source files and build
+COPY src/ContainerPilot.Server/ ./
+RUN dotnet build -c Release -o /app/build
 
-COPY --from=builder /app/public ./public
+# Publish
+RUN dotnet publish -c Release -o /app/publish
 
-# Set the correct permission for prerender cache
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
+# Stage 3: Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.20-jammy AS runtime
+WORKDIR /app
 
-# Automatically leverage output traces to reduce image size
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# Install Docker CLI (optional, for health checks)
+RUN apt-get update && apt-get install -y docker.io && rm -rf /var/lib/apt/lists/*
 
-# Copy public directory
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+# Copy published backend
+COPY --from=backend-build /app/publish .
 
-# Copy app directory with API routes (needed for runtime)
-COPY --from=builder --chown=nextjs:nodejs /app/app ./app
+# Copy React build output to wwwroot
+COPY --from=frontend-build /app/frontend/dist ./wwwroot
 
-# Copy custom server and socket.io lib
-COPY --from=builder --chown=nextjs:nodejs /app/server.js ./server.js
-COPY --from=builder --chown=nextjs:nodejs /app/lib ./lib
+# Create logs directory
+RUN mkdir -p /app/logs
 
-# Copy node_modules - needed for webpack and other dependencies
-COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
+# Environment variables
+ENV ASPNETCORE_ENVIRONMENT=Production
+ENV ASPNETCORE_URLS=http://+:5000
+ENV DockerImages=""
+ENV DockerHost="unix:///var/run/docker.sock"
 
-# Run as root to access Docker socket
-# USER nextjs
+EXPOSE 5000
 
-EXPOSE 3000
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+  CMD curl -f http://localhost:5000/api/health || exit 1
 
-# Healthcheck
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3000/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
-
-CMD ["node", "server.js"]
+ENTRYPOINT ["dotnet", "ContainerPilot.Web.dll"]

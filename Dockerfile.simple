@@ -1,0 +1,38 @@
+# Dockerfile simplificat pentru testare rapidă
+# Presupune că frontend-ul este deja construit local
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+
+# Copy project files
+COPY ContainerPilot.sln ./
+COPY src/ContainerPilot.Web/*.csproj ./src/ContainerPilot.Web/
+RUN dotnet restore
+
+# Build project
+COPY src/ContainerPilot.Web/ ./src/ContainerPilot.Web/
+WORKDIR /app/src/ContainerPilot.Web
+RUN dotnet publish -c Release -o /app/publish
+
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+
+# Copy published app
+COPY --from=build /app/publish .
+
+# Copy frontend dist (pre-built locally)
+COPY src/ContainerPilot.Web/src/ContainerPilot.Web.Client/dist ./wwwroot
+
+# Create logs directory
+RUN mkdir -p /app/logs
+
+# Environment
+ENV ASPNETCORE_ENVIRONMENT=Production
+ENV ASPNETCORE_URLS=http://+:5000
+ENV DockerImages=""
+ENV DockerHost="unix:///var/run/docker.sock"
+
+EXPOSE 5000
+
+ENTRYPOINT ["dotnet", "ContainerPilot.Web.dll"]

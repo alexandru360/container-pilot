@@ -1,28 +1,20 @@
-version: '3.8'
-
 services:
   container-pilot:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: container-pilot
     ports:
-      - "3000:3000"
+      - "5000:5000"
     volumes:
-      # For Docker
-      - /var/run/docker.sock:/var/run/docker.sock
-      # For Podman (uncomment if using Podman)
-      # - /run/podman/podman.sock:/var/run/docker.sock:Z
+      - /var/run/docker.sock:/var/run/docker.sock:rw
     environment:
-      - DOCKER_IMAGES=lottery-nginx,lottery-dotnet
-      # Optional: Specify Docker host if managing remote Docker engine
-      # Examples:
-      #   - DOCKER_HOST=http://192.168.1.100:2375  (remote Docker daemon)
-      #   - DOCKER_HOST=unix:///var/run/docker.sock (local socket)
-      # - DOCKER_HOST=http://your-unraid-ip:2375
-      - PORT=3000
-      - NODE_ENV=production
+      - ASPNETCORE_ENVIRONMENT=Production
+      - DockerImages=lottery-dotnet,lottery-nginx,lottery-tools
+      - DockerHost=unix:///var/run/docker.sock
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
       interval: 30s
       timeout: 3s
       start_period: 10s

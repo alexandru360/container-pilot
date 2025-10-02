@@ -1,0 +1,519 @@
+[2025-10-02T01:14:03.362] [INF] ============================================================
+[2025-10-02T01:14:03.390] [INF] 🚀 Starting Container Pilot Application
+[2025-10-02T01:14:03.391] [INF] ============================================================
+[2025-10-02T01:14:03.696] [FTL] Application terminated unexpectedly
+System.TypeLoadException: Method 'GetSwagger' in type 'Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator' from assembly 'Swashbuckle.AspNetCore.SwaggerGen, Version=9.0.5.0, Culture=neutral, PublicKeyToken=d84d99fb0135530a' does not have an implementation.
+   at Microsoft.Extensions.DependencyInjection.SwaggerGenServiceCollectionExtensions.AddSwaggerGen(IServiceCollection services, Action`1 setupAction)
+   at Microsoft.Extensions.DependencyInjection.SwaggerGenServiceCollectionExtensions.AddSwaggerGen(IServiceCollection services, Action`1 setupAction)
+   at Program.<Main>$(String[] args) in D:\Dev\container-pilot-net\src\ContainerPilot.Web\Program.cs:line 33
+[2025-10-02T01:14:43.341] [INF] ============================================================
+[2025-10-02T01:14:43.369] [INF] 🚀 Starting Container Pilot Application
+[2025-10-02T01:14:43.370] [INF] ============================================================
+[2025-10-02T01:14:43.408] [FTL] Application terminated unexpectedly
+System.TypeLoadException: Method 'GetSwagger' in type 'Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator' from assembly 'Swashbuckle.AspNetCore.SwaggerGen, Version=6.5.0.0, Culture=neutral, PublicKeyToken=d84d99fb0135530a' does not have an implementation.
+   at Microsoft.Extensions.DependencyInjection.SwaggerGenServiceCollectionExtensions.AddSwaggerGen(IServiceCollection services, Action`1 setupAction)
+   at Microsoft.Extensions.DependencyInjection.SwaggerGenServiceCollectionExtensions.AddSwaggerGen(IServiceCollection services, Action`1 setupAction)
+   at Program.<Main>$(String[] args) in D:\Dev\container-pilot-net\src\ContainerPilot.Web\Program.cs:line 33
+[2025-10-02T01:15:33.685] [INF] ============================================================
+[2025-10-02T01:15:33.715] [INF] 🚀 Starting Container Pilot Application
+[2025-10-02T01:15:33.716] [INF] ============================================================
+[2025-10-02T01:15:33.890] [FTL] Application terminated unexpectedly
+System.Reflection.ReflectionTypeLoadException: Unable to load one or more of the requested types.
+Method 'GetSwagger' in type 'Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator' from assembly 'Swashbuckle.AspNetCore.SwaggerGen, Version=6.5.0.0, Culture=neutral, PublicKeyToken=d84d99fb0135530a' does not have an implementation.
+Could not load type 'Microsoft.OpenApi.Models.OpenApiDocument' from assembly 'Microsoft.OpenApi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3f5743946376f042'.
+Could not load type 'Microsoft.OpenApi.Models.OpenApiResponse' from assembly 'Microsoft.OpenApi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3f5743946376f042'.
+Could not load type 'Microsoft.OpenApi.Models.OpenApiSecurityScheme' from assembly 'Microsoft.OpenApi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3f5743946376f042'.
+Could not load type 'Microsoft.OpenApi.Models.OpenApiDocument' from assembly 'Microsoft.OpenApi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3f5743946376f042'.
+   at System.Reflection.RuntimeModule.GetDefinedTypes()
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFeatureProvider.PopulateFeature(IEnumerable`1 parts, ControllerFeature feature)
+   at Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager.PopulateFeature[TFeature](TFeature feature)
+   at Microsoft.AspNetCore.Mvc.ApplicationModels.ControllerActionDescriptorProvider.GetControllerTypes()
+   at Microsoft.AspNetCore.Mvc.ApplicationModels.ControllerActionDescriptorProvider.GetDescriptors()
+   at Microsoft.AspNetCore.Mvc.ApplicationModels.ControllerActionDescriptorProvider.OnProvidersExecuting(ActionDescriptorProviderContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.DefaultActionDescriptorCollectionProvider.UpdateCollection()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.DefaultActionDescriptorCollectionProvider.Initialize()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.DefaultActionDescriptorCollectionProvider.GetChangeToken()
+   at Microsoft.Extensions.Primitives.ChangeToken.ChangeTokenRegistration`1..ctor(Func`1 changeTokenProducer, Action`1 changeTokenConsumer, TState state)
+   at Microsoft.Extensions.Primitives.ChangeToken.OnChange(Func`1 changeTokenProducer, Action changeTokenConsumer)
+   at Microsoft.AspNetCore.Mvc.Routing.ActionEndpointDataSourceBase.Subscribe()
+   at Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.GetOrCreateDataSource(IEndpointRouteBuilder endpoints)
+   at Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers(IEndpointRouteBuilder endpoints)
+   at Program.<Main>$(String[] args) in D:\Dev\container-pilot-net\src\ContainerPilot.Web\Program.cs:line 77
+System.TypeLoadException: Method 'GetSwagger' in type 'Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator' from assembly 'Swashbuckle.AspNetCore.SwaggerGen, Version=6.5.0.0, Culture=neutral, PublicKeyToken=d84d99fb0135530a' does not have an implementation.
+System.TypeLoadException: Could not load type 'Microsoft.OpenApi.Models.OpenApiDocument' from assembly 'Microsoft.OpenApi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3f5743946376f042'.
+System.TypeLoadException: Could not load type 'Microsoft.OpenApi.Models.OpenApiResponse' from assembly 'Microsoft.OpenApi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3f5743946376f042'.
+System.TypeLoadException: Could not load type 'Microsoft.OpenApi.Models.OpenApiSecurityScheme' from assembly 'Microsoft.OpenApi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3f5743946376f042'.
+System.TypeLoadException: Could not load type 'Microsoft.OpenApi.Models.OpenApiDocument' from assembly 'Microsoft.OpenApi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3f5743946376f042'.
+[2025-10-02T01:16:22.143] [INF] ============================================================
+[2025-10-02T01:16:22.170] [INF] 🚀 Starting Container Pilot Application
+[2025-10-02T01:16:22.171] [INF] ============================================================
+[2025-10-02T01:16:22.269] [WRN] The WebRootPath was not found: D:\Dev\container-pilot-net\src\ContainerPilot.Web\wwwroot. Static files may be unavailable.
+[2025-10-02T01:16:22.272] [INF] ============================================================
+[2025-10-02T01:16:22.273] [INF] 📦 Configured containers: 
+[2025-10-02T01:16:22.273] [INF] 🐋 Docker host: unix:///var/run/docker.sock
+[2025-10-02T01:16:22.274] [INF] 🌍 Environment: Production
+[2025-10-02T01:16:22.274] [INF] 🔊 Port: 5000
+[2025-10-02T01:16:22.274] [INF] 📅 Started at: "2025-10-01T22:16:22.2748023Z"
+[2025-10-02T01:16:22.277] [INF] ============================================================
+[2025-10-02T01:16:22.286] [WRN] The WebRootPath was not found: D:\Dev\container-pilot-net\src\ContainerPilot.Web\wwwroot. Static files may be unavailable.
+[2025-10-02T01:16:22.309] [INF] Now listening on: http://localhost:5000
+[2025-10-02T01:16:22.311] [INF] Application started. Press Ctrl+C to shut down.
+[2025-10-02T01:16:22.312] [INF] Hosting environment: Production
+[2025-10-02T01:16:22.312] [INF] Content root path: D:\Dev\container-pilot-net\src\ContainerPilot.Web
+[2025-10-02T01:16:35.427] [INF] ["2025-10-01T22:16:35.4274368Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:16:35.431] [WRN] Failed to determine the https port for redirect.
+[2025-10-02T01:16:35.455] [INF] [DOCKER-SERVICE] Initializing Docker client with host: unix:///var/run/docker.sock
+[2025-10-02T01:16:35.537] [INF] ["2025-10-01T22:16:35.5374583Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:16:35.538] [INF] ["2025-10-01T22:16:35.5374583Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:16:35.539] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:16:35.540] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:16:35.540] [INF] ["2025-10-01T22:16:35.5374583Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:16:35.567] [INF] ["2025-10-01T22:16:35.4274368Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:16:35.571] [INF] ["2025-10-01T22:16:35.5712452Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:16:35.573] [INF] ["2025-10-01T22:16:35.5731809Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:16:35.573] [INF] ["2025-10-01T22:16:35.5731809Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:16:35.574] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:16:35.574] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:16:35.574] [INF] ["2025-10-01T22:16:35.5731809Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:16:35.575] [INF] ["2025-10-01T22:16:35.5712452Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:16:37.829] [INF] ["2025-10-01T22:16:37.8291245Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:16:37.830] [INF] ["2025-10-01T22:16:37.8303256Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:16:37.831] [INF] ["2025-10-01T22:16:37.8303256Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:16:37.832] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:16:37.833] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:16:37.833] [INF] ["2025-10-01T22:16:37.8303256Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:16:37.834] [INF] ["2025-10-01T22:16:37.8291245Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:16:38.526] [INF] ["2025-10-01T22:16:38.5268190Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:16:38.528] [INF] ["2025-10-01T22:16:38.5283206Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:16:38.529] [INF] ["2025-10-01T22:16:38.5283206Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:16:38.529] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:16:38.530] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:16:38.530] [INF] ["2025-10-01T22:16:38.5283206Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:16:38.532] [INF] ["2025-10-01T22:16:38.5268190Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:16:50.564] [INF] ["2025-10-01T22:16:50.5640657Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:16:50.565] [INF] ["2025-10-01T22:16:50.5650669Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:16:50.565] [INF] ["2025-10-01T22:16:50.5650669Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:16:50.566] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:16:50.566] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:16:50.567] [INF] ["2025-10-01T22:16:50.5650669Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:16:50.568] [INF] ["2025-10-01T22:16:50.5640657Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:16:50.570] [INF] ["2025-10-01T22:16:50.5704135Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:16:50.571] [INF] ["2025-10-01T22:16:50.5711934Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:16:50.571] [INF] ["2025-10-01T22:16:50.5711934Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:16:50.572] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:16:50.572] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:16:50.573] [INF] ["2025-10-01T22:16:50.5711934Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:16:50.573] [INF] ["2025-10-01T22:16:50.5704135Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:17:05.529] [INF] ["2025-10-01T22:17:05.5293664Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:17:05.530] [INF] ["2025-10-01T22:17:05.5303382Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:17:05.531] [INF] ["2025-10-01T22:17:05.5303382Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:17:05.531] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:17:05.532] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:17:05.532] [INF] ["2025-10-01T22:17:05.5303382Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:17:05.533] [INF] ["2025-10-01T22:17:05.5293664Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:17:20.570] [INF] ["2025-10-01T22:17:20.5705387Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:17:20.572] [INF] ["2025-10-01T22:17:20.5720402Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:17:20.572] [INF] ["2025-10-01T22:17:20.5720402Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:17:20.573] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:17:20.574] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:17:20.574] [INF] ["2025-10-01T22:17:20.5720402Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:17:20.575] [INF] ["2025-10-01T22:17:20.5705387Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:17:35.524] [INF] ["2025-10-01T22:17:35.5243370Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:17:35.525] [INF] ["2025-10-01T22:17:35.5251976Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:17:35.525] [INF] ["2025-10-01T22:17:35.5251976Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:17:35.526] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:17:35.526] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:17:35.527] [INF] ["2025-10-01T22:17:35.5251976Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:17:35.528] [INF] ["2025-10-01T22:17:35.5243370Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:17:50.580] [INF] ["2025-10-01T22:17:50.5800197Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:17:50.581] [INF] ["2025-10-01T22:17:50.5811446Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:17:50.581] [INF] ["2025-10-01T22:17:50.5811446Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:17:50.582] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:17:50.582] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:17:50.582] [INF] ["2025-10-01T22:17:50.5811446Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:17:50.583] [INF] ["2025-10-01T22:17:50.5800197Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:18:05.524] [INF] ["2025-10-01T22:18:05.5241379Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:18:05.524] [INF] ["2025-10-01T22:18:05.5249714Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:18:05.525] [INF] ["2025-10-01T22:18:05.5249714Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:18:05.525] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:18:05.526] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:18:05.526] [INF] ["2025-10-01T22:18:05.5249714Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:18:05.527] [INF] ["2025-10-01T22:18:05.5241379Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:18:20.569] [INF] ["2025-10-01T22:18:20.5690458Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:18:20.569] [INF] ["2025-10-01T22:18:20.5698715Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:18:20.570] [INF] ["2025-10-01T22:18:20.5698715Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:18:20.570] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:18:20.571] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:18:20.571] [INF] ["2025-10-01T22:18:20.5698715Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:18:20.572] [INF] ["2025-10-01T22:18:20.5690458Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:18:35.518] [INF] ["2025-10-01T22:18:35.5185940Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:18:35.519] [INF] ["2025-10-01T22:18:35.5193512Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:18:35.519] [INF] ["2025-10-01T22:18:35.5193512Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:18:35.520] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:18:35.520] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:18:35.520] [INF] ["2025-10-01T22:18:35.5193512Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:18:35.521] [INF] ["2025-10-01T22:18:35.5185940Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:18:50.577] [INF] ["2025-10-01T22:18:50.5778028Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:18:50.578] [INF] ["2025-10-01T22:18:50.5786313Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:18:50.579] [INF] ["2025-10-01T22:18:50.5786313Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:18:50.579] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:18:50.579] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:18:50.580] [INF] ["2025-10-01T22:18:50.5786313Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:18:50.580] [INF] ["2025-10-01T22:18:50.5778028Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:19:05.519] [INF] ["2025-10-01T22:19:05.5191571Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:19:05.519] [INF] ["2025-10-01T22:19:05.5199688Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:19:05.520] [INF] ["2025-10-01T22:19:05.5199688Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:19:05.520] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:19:05.521] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:19:05.521] [INF] ["2025-10-01T22:19:05.5199688Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:19:05.522] [INF] ["2025-10-01T22:19:05.5191571Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:19:20.578] [INF] ["2025-10-01T22:19:20.5780009Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:19:20.578] [INF] ["2025-10-01T22:19:20.5788076Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:19:20.579] [INF] ["2025-10-01T22:19:20.5788076Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:19:20.579] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:19:20.580] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:19:20.581] [INF] ["2025-10-01T22:19:20.5788076Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:19:20.581] [INF] ["2025-10-01T22:19:20.5780009Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:19:35.523] [INF] ["2025-10-01T22:19:35.5234363Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:19:35.524] [INF] ["2025-10-01T22:19:35.5248180Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:19:35.525] [INF] ["2025-10-01T22:19:35.5248180Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:19:35.525] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:19:35.526] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:19:35.526] [INF] ["2025-10-01T22:19:35.5248180Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:19:35.527] [INF] ["2025-10-01T22:19:35.5234363Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:19:50.570] [INF] ["2025-10-01T22:19:50.5708924Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:19:50.571] [INF] ["2025-10-01T22:19:50.5717487Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:19:50.572] [INF] ["2025-10-01T22:19:50.5717487Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:19:50.572] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:19:50.573] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:19:50.573] [INF] ["2025-10-01T22:19:50.5717487Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:19:50.574] [INF] ["2025-10-01T22:19:50.5708924Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:20:10.534] [INF] ["2025-10-01T22:20:10.5347524Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:20:10.535] [INF] ["2025-10-01T22:20:10.5359704Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:20:10.536] [INF] ["2025-10-01T22:20:10.5359704Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:20:10.537] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:20:10.538] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:20:10.538] [INF] ["2025-10-01T22:20:10.5359704Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:20:10.540] [INF] ["2025-10-01T22:20:10.5347524Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:20:17.587] [INF] ["2025-10-01T22:20:17.5875831Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:20:17.588] [INF] ["2025-10-01T22:20:17.5886970Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:20:17.589] [INF] ["2025-10-01T22:20:17.5886970Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:20:17.590] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:20:17.590] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:20:17.590] [INF] ["2025-10-01T22:20:17.5886970Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:20:17.591] [INF] ["2025-10-01T22:20:17.5875831Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:20:17.594] [INF] ["2025-10-01T22:20:17.5943720Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:20:17.595] [INF] ["2025-10-01T22:20:17.5955520Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:20:17.596] [INF] ["2025-10-01T22:20:17.5955520Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:20:17.596] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:20:17.597] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:20:17.597] [INF] ["2025-10-01T22:20:17.5955520Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:20:17.598] [INF] ["2025-10-01T22:20:17.5943720Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:20:19.230] [INF] ["2025-10-01T22:20:19.2302139Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:20:19.231] [INF] ["2025-10-01T22:20:19.2311362Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:20:19.231] [INF] ["2025-10-01T22:20:19.2311362Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:20:19.232] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:20:19.232] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:20:19.233] [INF] ["2025-10-01T22:20:19.2311362Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:20:19.234] [INF] ["2025-10-01T22:20:19.2302139Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:20:20.042] [INF] ["2025-10-01T22:20:20.0428760Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:20:20.043] [INF] ["2025-10-01T22:20:20.0437893Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:20:20.044] [INF] ["2025-10-01T22:20:20.0437893Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:20:20.044] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:20:20.045] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:20:20.045] [INF] ["2025-10-01T22:20:20.0437893Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:20:20.046] [INF] ["2025-10-01T22:20:20.0428760Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:20:20.568] [INF] ["2025-10-01T22:20:20.5688175Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:20:20.569] [INF] ["2025-10-01T22:20:20.5697374Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:20:20.570] [INF] ["2025-10-01T22:20:20.5697374Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:20:20.571] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:20:20.571] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:20:20.572] [INF] ["2025-10-01T22:20:20.5697374Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:20:20.572] [INF] ["2025-10-01T22:20:20.5688175Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:20:22.605] [INF] ["2025-10-01T22:20:22.6059391Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:20:22.606] [INF] ["2025-10-01T22:20:22.6067853Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:20:22.607] [INF] ["2025-10-01T22:20:22.6067853Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:20:22.607] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:20:22.608] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:20:22.608] [INF] ["2025-10-01T22:20:22.6067853Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:20:22.609] [INF] ["2025-10-01T22:20:22.6059391Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:20:23.139] [INF] ["2025-10-01T22:20:23.1398285Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:20:23.140] [INF] ["2025-10-01T22:20:23.1406775Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:20:23.141] [INF] ["2025-10-01T22:20:23.1406775Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:20:23.141] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:20:23.142] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:20:23.142] [INF] ["2025-10-01T22:20:23.1406775Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:20:23.143] [INF] ["2025-10-01T22:20:23.1398285Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:20:26.394] [INF] ["2025-10-01T22:20:26.3946880Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:20:26.395] [INF] ["2025-10-01T22:20:26.3956419Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:20:26.396] [INF] ["2025-10-01T22:20:26.3956419Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:20:26.396] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:20:26.397] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:20:26.397] [INF] ["2025-10-01T22:20:26.3956419Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:20:26.398] [INF] ["2025-10-01T22:20:26.3946880Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:20:26.919] [INF] ["2025-10-01T22:20:26.9194066Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:20:26.920] [INF] ["2025-10-01T22:20:26.9204751Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:20:26.921] [INF] ["2025-10-01T22:20:26.9204751Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:20:26.921] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:20:26.922] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:20:26.922] [INF] ["2025-10-01T22:20:26.9204751Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:20:26.923] [INF] ["2025-10-01T22:20:26.9194066Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:20:48.523] [INF] ["2025-10-01T22:20:48.5237338Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:20:48.524] [INF] ["2025-10-01T22:20:48.5246469Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:20:48.525] [INF] ["2025-10-01T22:20:48.5246469Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:20:48.525] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:20:48.526] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:20:48.526] [INF] ["2025-10-01T22:20:48.5246469Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:20:48.526] [INF] ["2025-10-01T22:20:48.5237338Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:20:50.574] [INF] ["2025-10-01T22:20:50.5742403Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:20:50.575] [INF] ["2025-10-01T22:20:50.5752018Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:20:50.575] [INF] ["2025-10-01T22:20:50.5752018Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:20:50.576] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:20:50.576] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:20:50.576] [INF] ["2025-10-01T22:20:50.5752018Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:20:50.577] [INF] ["2025-10-01T22:20:50.5742403Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:21:17.595] [INF] ["2025-10-01T22:21:17.5955715Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:21:17.596] [INF] ["2025-10-01T22:21:17.5963884Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:21:17.596] [INF] ["2025-10-01T22:21:17.5963884Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:21:17.597] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:21:17.597] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:21:17.598] [INF] ["2025-10-01T22:21:17.5963884Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:21:17.598] [INF] ["2025-10-01T22:21:17.5955715Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:21:18.513] [INF] ["2025-10-01T22:21:18.5137992Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:21:18.514] [INF] ["2025-10-01T22:21:18.5147272Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:21:18.515] [INF] ["2025-10-01T22:21:18.5147272Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:21:18.515] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:21:18.515] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:21:18.516] [INF] ["2025-10-01T22:21:18.5147272Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:21:18.517] [INF] ["2025-10-01T22:21:18.5137992Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:21:18.519] [INF] ["2025-10-01T22:21:18.5198437Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:21:18.520] [INF] ["2025-10-01T22:21:18.5207835Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:21:18.521] [INF] ["2025-10-01T22:21:18.5207835Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:21:18.522] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:21:18.522] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:21:18.523] [INF] ["2025-10-01T22:21:18.5207835Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:21:18.524] [INF] ["2025-10-01T22:21:18.5198437Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:21:19.354] [INF] ["2025-10-01T22:21:19.3548279Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:21:19.355] [INF] ["2025-10-01T22:21:19.3557175Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:21:19.356] [INF] ["2025-10-01T22:21:19.3557175Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:21:19.356] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:21:19.357] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:21:19.357] [INF] ["2025-10-01T22:21:19.3557175Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:21:19.359] [INF] ["2025-10-01T22:21:19.3548279Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:21:19.361] [INF] ["2025-10-01T22:21:19.3616095Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:21:19.362] [INF] ["2025-10-01T22:21:19.3627086Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:21:19.363] [INF] ["2025-10-01T22:21:19.3627086Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:21:19.363] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:21:19.364] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:21:19.364] [INF] ["2025-10-01T22:21:19.3627086Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:21:19.365] [INF] ["2025-10-01T22:21:19.3616095Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:21:38.369] [INF] ["2025-10-01T22:21:38.3695030Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:21:38.370] [INF] ["2025-10-01T22:21:38.3702318Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:21:38.370] [INF] ["2025-10-01T22:21:38.3702318Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:21:38.371] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:21:38.371] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:21:38.372] [INF] ["2025-10-01T22:21:38.3702318Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:21:38.372] [INF] ["2025-10-01T22:21:38.3695030Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:21:38.374] [INF] ["2025-10-01T22:21:38.3746953Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:21:38.375] [INF] ["2025-10-01T22:21:38.3754480Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:21:38.376] [INF] ["2025-10-01T22:21:38.3754480Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:21:38.377] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:21:38.377] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:21:38.378] [INF] ["2025-10-01T22:21:38.3754480Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:21:38.379] [INF] ["2025-10-01T22:21:38.3746953Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:21:49.531] [INF] ["2025-10-01T22:21:49.5317189Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:21:49.532] [INF] ["2025-10-01T22:21:49.5327575Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:21:49.533] [INF] ["2025-10-01T22:21:49.5327575Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:21:49.533] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:21:49.534] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:21:49.534] [INF] ["2025-10-01T22:21:49.5327575Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:21:49.535] [INF] ["2025-10-01T22:21:49.5317189Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:22:08.383] [INF] ["2025-10-01T22:22:08.3831468Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:22:08.383] [INF] ["2025-10-01T22:22:08.3838158Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:22:08.384] [INF] ["2025-10-01T22:22:08.3838158Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:22:08.384] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:22:08.384] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:22:08.385] [INF] ["2025-10-01T22:22:08.3838158Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:22:08.385] [INF] ["2025-10-01T22:22:08.3831468Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:22:19.518] [INF] ["2025-10-01T22:22:19.5186926Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:22:19.519] [INF] ["2025-10-01T22:22:19.5196008Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:22:19.520] [INF] ["2025-10-01T22:22:19.5196008Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:22:19.520] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:22:19.520] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:22:19.521] [INF] ["2025-10-01T22:22:19.5196008Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:22:19.521] [INF] ["2025-10-01T22:22:19.5186926Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:22:38.375] [INF] ["2025-10-01T22:22:38.3759442Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:22:38.376] [INF] ["2025-10-01T22:22:38.3768793Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:22:38.377] [INF] ["2025-10-01T22:22:38.3768793Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:22:38.378] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:22:38.378] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:22:38.378] [INF] ["2025-10-01T22:22:38.3768793Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:22:38.379] [INF] ["2025-10-01T22:22:38.3759442Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:22:49.526] [INF] ["2025-10-01T22:22:49.5263500Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:22:49.527] [INF] ["2025-10-01T22:22:49.5273644Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:22:49.527] [INF] ["2025-10-01T22:22:49.5273644Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:22:49.528] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:22:49.529] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:22:49.529] [INF] ["2025-10-01T22:22:49.5273644Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:22:49.530] [INF] ["2025-10-01T22:22:49.5263500Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:23:04.986] [INF] ["2025-10-01T22:23:04.9862960Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:23:04.987] [INF] ["2025-10-01T22:23:04.9873845Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:23:04.987] [INF] ["2025-10-01T22:23:04.9873845Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:23:04.988] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:23:04.989] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:23:04.989] [INF] ["2025-10-01T22:23:04.9873845Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:23:04.990] [INF] ["2025-10-01T22:23:04.9862960Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:23:04.994] [INF] ["2025-10-01T22:23:04.9944184Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:23:04.995] [INF] ["2025-10-01T22:23:04.9953003Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:23:04.995] [INF] ["2025-10-01T22:23:04.9953003Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:23:04.996] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:23:04.997] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:23:04.997] [INF] ["2025-10-01T22:23:04.9953003Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:23:04.998] [INF] ["2025-10-01T22:23:04.9944184Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:23:05.531] [INF] ["2025-10-01T22:23:05.5317759Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:23:05.532] [INF] ["2025-10-01T22:23:05.5326040Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:23:05.533] [INF] ["2025-10-01T22:23:05.5326040Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:23:05.533] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:23:05.533] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:23:05.534] [INF] ["2025-10-01T22:23:05.5326040Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:23:05.534] [INF] ["2025-10-01T22:23:05.5317759Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:23:05.537] [INF] ["2025-10-01T22:23:05.5373834Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:23:05.538] [INF] ["2025-10-01T22:23:05.5382337Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:23:05.539] [INF] ["2025-10-01T22:23:05.5382337Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:23:05.539] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:23:05.540] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:23:05.540] [INF] ["2025-10-01T22:23:05.5382337Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:23:05.541] [INF] ["2025-10-01T22:23:05.5373834Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:23:21.761] [INF] ["2025-10-01T22:23:21.7612986Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:23:21.762] [INF] ["2025-10-01T22:23:21.7624062Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:23:21.763] [INF] ["2025-10-01T22:23:21.7624062Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:23:21.763] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:23:21.764] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:23:21.764] [INF] ["2025-10-01T22:23:21.7624062Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:23:21.765] [INF] ["2025-10-01T22:23:21.7612986Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:23:21.767] [INF] ["2025-10-01T22:23:21.7675360Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:23:21.768] [INF] ["2025-10-01T22:23:21.7683192Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:23:21.768] [INF] ["2025-10-01T22:23:21.7683192Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:23:21.769] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:23:21.769] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:23:21.770] [INF] ["2025-10-01T22:23:21.7683192Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:23:21.771] [INF] ["2025-10-01T22:23:21.7675360Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:23:23.131] [INF] ["2025-10-01T22:23:23.1319930Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:23:23.132] [INF] ["2025-10-01T22:23:23.1329045Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:23:23.133] [INF] ["2025-10-01T22:23:23.1329045Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:23:23.134] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:23:23.134] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:23:23.135] [INF] ["2025-10-01T22:23:23.1329045Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:23:23.135] [INF] ["2025-10-01T22:23:23.1319930Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:23:23.137] [INF] ["2025-10-01T22:23:23.1377799Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:23:23.139] [INF] ["2025-10-01T22:23:23.1391395Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:23:23.139] [INF] ["2025-10-01T22:23:23.1391395Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:23:23.140] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:23:23.140] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:23:23.140] [INF] ["2025-10-01T22:23:23.1391395Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:23:23.141] [INF] ["2025-10-01T22:23:23.1377799Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:23:36.528] [INF] ["2025-10-01T22:23:36.5282399Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:23:36.529] [INF] ["2025-10-01T22:23:36.5293237Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:23:36.529] [INF] ["2025-10-01T22:23:36.5293237Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:23:36.530] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:23:36.530] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:23:36.531] [INF] ["2025-10-01T22:23:36.5293237Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:23:36.531] [INF] ["2025-10-01T22:23:36.5282399Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:23:52.516] [INF] ["2025-10-01T22:23:52.5160324Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:23:52.517] [INF] ["2025-10-01T22:23:52.5172240Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:23:52.518] [INF] ["2025-10-01T22:23:52.5172240Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:23:52.518] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:23:52.519] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:23:52.519] [INF] ["2025-10-01T22:23:52.5172240Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:23:52.520] [INF] ["2025-10-01T22:23:52.5160324Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:23:52.522] [INF] ["2025-10-01T22:23:52.5229405Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:23:52.524] [INF] ["2025-10-01T22:23:52.5240154Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:23:52.524] [INF] ["2025-10-01T22:23:52.5240154Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:23:52.525] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:23:52.526] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:23:52.526] [INF] ["2025-10-01T22:23:52.5240154Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:23:52.527] [INF] ["2025-10-01T22:23:52.5229405Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:24:06.520] [INF] ["2025-10-01T22:24:06.5201433Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:24:06.521] [INF] ["2025-10-01T22:24:06.5214396Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:24:06.522] [INF] ["2025-10-01T22:24:06.5214396Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:24:06.522] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:24:06.522] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:24:06.523] [INF] ["2025-10-01T22:24:06.5214396Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:24:06.523] [INF] ["2025-10-01T22:24:06.5201433Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:24:22.520] [INF] ["2025-10-01T22:24:22.5207983Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:24:22.521] [INF] ["2025-10-01T22:24:22.5215210Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:24:22.521] [INF] ["2025-10-01T22:24:22.5215210Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:24:22.522] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:24:22.522] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:24:22.522] [INF] ["2025-10-01T22:24:22.5215210Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:24:22.523] [INF] ["2025-10-01T22:24:22.5207983Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:24:36.532] [INF] ["2025-10-01T22:24:36.5319966Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:24:36.533] [INF] ["2025-10-01T22:24:36.5331131Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:24:36.533] [INF] ["2025-10-01T22:24:36.5331131Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:24:36.534] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:24:36.534] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:24:36.535] [INF] ["2025-10-01T22:24:36.5331131Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:24:36.535] [INF] ["2025-10-01T22:24:36.5319966Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:24:52.524] [INF] ["2025-10-01T22:24:52.5248528Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:24:52.525] [INF] ["2025-10-01T22:24:52.5258196Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:24:52.526] [INF] ["2025-10-01T22:24:52.5258196Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:24:52.526] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:24:52.527] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:24:52.527] [INF] ["2025-10-01T22:24:52.5258196Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:24:52.528] [INF] ["2025-10-01T22:24:52.5248528Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:25:06.517] [INF] ["2025-10-01T22:25:06.5175247Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:25:06.518] [INF] ["2025-10-01T22:25:06.5183771Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:25:06.518] [INF] ["2025-10-01T22:25:06.5183771Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:25:06.519] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:25:06.519] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:25:06.520] [INF] ["2025-10-01T22:25:06.5183771Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:25:06.520] [INF] ["2025-10-01T22:25:06.5175247Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:25:12.655] [INF] ["2025-10-01T22:25:12.6552162Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:25:12.656] [INF] ["2025-10-01T22:25:12.6561704Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:25:12.656] [INF] ["2025-10-01T22:25:12.6561704Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:25:12.657] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:25:12.657] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:25:12.657] [INF] ["2025-10-01T22:25:12.6561704Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:25:12.658] [INF] ["2025-10-01T22:25:12.6552162Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:25:12.660] [INF] ["2025-10-01T22:25:12.6601972Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:25:12.661] [INF] ["2025-10-01T22:25:12.6610046Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:25:12.661] [INF] ["2025-10-01T22:25:12.6610046Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:25:12.662] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:25:12.663] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:25:12.663] [INF] ["2025-10-01T22:25:12.6610046Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:25:12.664] [INF] ["2025-10-01T22:25:12.6601972Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:25:36.525] [INF] ["2025-10-01T22:25:36.5252803Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:25:36.526] [INF] ["2025-10-01T22:25:36.5260232Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:25:36.526] [INF] ["2025-10-01T22:25:36.5260232Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:25:36.526] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:25:36.527] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:25:36.527] [INF] ["2025-10-01T22:25:36.5260232Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:25:36.528] [INF] ["2025-10-01T22:25:36.5252803Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:25:42.669] [INF] ["2025-10-01T22:25:42.6694805Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:25:42.670] [INF] ["2025-10-01T22:25:42.6703898Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:25:42.670] [INF] ["2025-10-01T22:25:42.6703898Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:25:42.671] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:25:42.671] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:25:42.672] [INF] ["2025-10-01T22:25:42.6703898Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:25:42.673] [INF] ["2025-10-01T22:25:42.6694805Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:26:10.528] [INF] ["2025-10-01T22:26:10.5285585Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:26:10.529] [INF] ["2025-10-01T22:26:10.5298767Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:26:10.530] [INF] ["2025-10-01T22:26:10.5298767Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:26:10.531] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:26:10.531] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:26:10.531] [INF] ["2025-10-01T22:26:10.5298767Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:26:10.532] [INF] ["2025-10-01T22:26:10.5285585Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:26:11.695] [INF] ["2025-10-01T22:26:11.6959073Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:26:11.696] [INF] ["2025-10-01T22:26:11.6966303Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:26:11.697] [INF] ["2025-10-01T22:26:11.6966303Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:26:11.697] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:26:11.697] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:26:11.698] [INF] ["2025-10-01T22:26:11.6966303Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:26:11.699] [INF] ["2025-10-01T22:26:11.6959073Z"] [SERVER] GET /api/containers/status -> 200
+[2025-10-02T01:26:11.700] [INF] ["2025-10-01T22:26:11.7007642Z"] [SERVER] GET /api/containers/status
+[2025-10-02T01:26:11.701] [INF] ["2025-10-01T22:26:11.7014125Z"] [CONTAINERS] ========== GET STATUS ==========
+[2025-10-02T01:26:11.702] [INF] ["2025-10-01T22:26:11.7014125Z"] [CONTAINERS] Configured containers: 
+[2025-10-02T01:26:11.702] [INF] [DOCKER-SERVICE] Getting containers. Configured: 
+[2025-10-02T01:26:11.703] [WRN] [DOCKER-SERVICE] No containers configured
+[2025-10-02T01:26:11.703] [INF] ["2025-10-01T22:26:11.7014125Z"] [CONTAINERS] Returning 0 containers
+[2025-10-02T01:26:11.703] [INF] ["2025-10-01T22:26:11.7007642Z"] [SERVER] GET /api/containers/status -> 200

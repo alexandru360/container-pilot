@@ -1,0 +1,20 @@
+# Dockerfile super-simplu - folosește aplicația deja compilată local
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+
+WORKDIR /app
+
+# Copiază aplicația deja publishuită (cu frontend în wwwroot)
+COPY src/ContainerPilot.Web/bin/publish ./
+
+# Create logs directory
+RUN mkdir -p /app/logs
+
+# Environment
+ENV ASPNETCORE_ENVIRONMENT=Production
+ENV ASPNETCORE_URLS=http://+:5000
+ENV DockerImages=""
+ENV DockerHost="unix:///var/run/docker.sock"
+
+EXPOSE 5000
+
+ENTRYPOINT ["dotnet", "ContainerPilot.Web.dll"]

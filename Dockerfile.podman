@@ -1,0 +1,28 @@
+# Dockerfile pentru Podman/Docker - .NET 8.0 LTS Stable
+# Compatibil cu GitHub Actions CI/CD și local builds
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.20-jammy
+
+WORKDIR /app
+
+# Copiază aplicația deja publishuită (cu frontend în wwwroot)
+COPY ./publish ./
+
+# Create logs directory
+RUN mkdir -p /app/logs
+
+# Install curl pentru health checks
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# Environment variables
+ENV ASPNETCORE_ENVIRONMENT=Production
+ENV ASPNETCORE_URLS=http://+:5000
+ENV DockerImages=""
+ENV DockerHost="unix:///var/run/docker.sock"
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+  CMD curl -f http://localhost:5000/api/health || exit 1
+
+EXPOSE 5000
+
+ENTRYPOINT ["dotnet", "ContainerPilot.Server.dll"]

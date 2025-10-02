@@ -1,0 +1,32 @@
+services:
+  container-pilot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: container-pilot-podman
+    ports:
+      - "5000:5000"
+    volumes:
+      # Podman socket path (Unix/Linux)
+      # Pentru Podman, socket-ul este de obicei în: 
+      # - Linux: /run/podman/podman.sock sau /run/user/<UID>/podman/podman.sock
+      # - Windows WSL2: /mnt/wslg/runtime-dir/podman/podman.sock
+      - /run/podman/podman.sock:/var/run/docker.sock:rw
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      # Socket-ul Podman este montat ca /var/run/docker.sock pentru compatibilitate
+      # Docker.DotNet funcționează cu orice socket compatibil Docker API
+      - DockerHost=unix:///var/run/docker.sock
+      # Exemplu de containere de testat (poți înlocui cu propriile tale)
+      - DockerImages=test-nginx,test-alpine,container-pilot-podman
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 3s
+      start_period: 10s
+      retries: 3
+    labels:
+      io.podman.compose.project: "container-pilot"
+      description: "Container Pilot - Podman Management Dashboard"
+
