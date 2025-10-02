@@ -53,15 +53,15 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-          cache-dependency-path: './src/ContainerPilot.Server/src/ContainerPilot.Server.Client/package-lock.json'
+          cache-dependency-path: './src/ContainerPilot.Server/src/ContainerPilot.Web.Client/package-lock.json'
       
       - name: 📦 Install frontend dependencies
         run: npm ci
-        working-directory: ./src/ContainerPilot.Server/src/ContainerPilot.Server.Client
+        working-directory: ./src/ContainerPilot.Server/src/ContainerPilot.Web.Client
       
       - name: 🔨 Build frontend
         run: npm run build
-        working-directory: ./src/ContainerPilot.Server/src/ContainerPilot.Server.Client
+        working-directory: ./src/ContainerPilot.Server/src/ContainerPilot.Web.Client
       
       # ----- Combine Frontend + Backend -----
       - name: 📁 Copy frontend to wwwroot
