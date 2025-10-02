@@ -11,9 +11,11 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.Console(
         outputTemplate: "[{Timestamp:yyyy-MM-ddTHH:mm:ss.fff}] [{Level:u3}] {Message:lj}{NewLine}{Exception}")
     .WriteTo.File(
-        "logs/container-pilot-.log",
+        "/app/logs/container-pilot.log",
         rollingInterval: RollingInterval.Day,
-        outputTemplate: "[{Timestamp:yyyy-MM-ddTHH:mm:ss.fff}] [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+        outputTemplate: "[{Timestamp:yyyy-MM-ddTHH:mm:ss.fff}] [{Level:u3}] {Message:lj}{NewLine}{Exception}",
+        shared: true,
+        flushToDiskInterval: TimeSpan.FromSeconds(1))
     .CreateLogger();
 
 try
