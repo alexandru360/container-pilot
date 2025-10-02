@@ -1,6 +1,8 @@
-import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Box } from '@mui/material';
-import { Sailing as DockerIcon } from '@mui/icons-material';
+import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Box, Tabs, Tab, Container } from '@mui/material';
+import { Sailing as DockerIcon, ViewList, Article } from '@mui/icons-material';
+import { useState } from 'react';
 import ContainerList from './components/ContainerList';
+import LiveLogs from './components/LiveLogs';
 
 const darkTheme = createTheme({
   palette: {
@@ -76,7 +78,34 @@ const darkTheme = createTheme({
   },
 });
 
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ py: 3 }}>{children}</Box>}
+    </div>
+  );
+}
+
 function App() {
+  const [currentTab, setCurrentTab] = useState(0);
+
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+    setCurrentTab(newValue);
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -118,8 +147,9 @@ function App() {
               sx={{ 
                 py: 1,
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: 'space-between',
                 alignItems: 'center',
+                px: { xs: 2, sm: 3 },
               }}
             >
               <Box 
@@ -143,18 +173,60 @@ function App() {
                   component="div" 
                   sx={{ 
                     fontWeight: 700,
-                    fontSize: '1.5rem',
+                    fontSize: { xs: '1.2rem', sm: '1.5rem' },
                   }}
                 >
                   Container Pilot
                 </Typography>
               </Box>
+
+              <Tabs 
+                value={currentTab} 
+                onChange={handleTabChange}
+                textColor="primary"
+                indicatorColor="primary"
+                sx={{
+                  minHeight: 48,
+                  '& .MuiTab-root': {
+                    minHeight: 48,
+                    color: 'text.secondary',
+                    '&.Mui-selected': {
+                      color: 'primary.main',
+                    },
+                  },
+                }}
+              >
+                <Tab 
+                  icon={<ViewList />} 
+                  label={<Box sx={{ display: { xs: 'none', sm: 'block' } }}>Containers</Box>} 
+                  iconPosition="start"
+                  sx={{ minWidth: { xs: 60, sm: 120 } }}
+                />
+                <Tab 
+                  icon={<Article />} 
+                  label={<Box sx={{ display: { xs: 'none', sm: 'block' } }}>Live Logs</Box>} 
+                  iconPosition="start"
+                  sx={{ minWidth: { xs: 60, sm: 120 } }}
+                />
+              </Tabs>
             </Toolbar>
           </AppBar>
 
-          <Box component="main" sx={{ flexGrow: 1 }}>
-            <ContainerList />
-          </Box>
+          <Container
+            maxWidth={false}
+            sx={{
+              flexGrow: 1,
+              width: { xs: '100%', sm: '95%', md: '90%', lg: '80%' },
+              px: { xs: 2, sm: 3, md: 4 },
+            }}
+          >
+            <TabPanel value={currentTab} index={0}>
+              <ContainerList />
+            </TabPanel>
+            <TabPanel value={currentTab} index={1}>
+              <LiveLogs />
+            </TabPanel>
+          </Container>
 
           <Box
             component="footer"

@@ -3,7 +3,6 @@ import {
   Card,
   Typography,
   Box,
-  Chip,
   IconButton,
   Tooltip,
   CircularProgress,
@@ -20,7 +19,7 @@ import {
   SystemUpdateAlt as UpdateIcon,
   ExpandMore as ExpandMoreIcon,
   CheckCircle as CheckCircleIcon,
-  Error as ErrorIcon,
+  Cancel as CancelIcon,
   Info as InfoIcon,
 } from '@mui/icons-material';
 import type { ContainerInfo } from '../types';
@@ -46,27 +45,14 @@ const ContainerCard: React.FC<ContainerCardProps> = ({
 }) => {
   const [expanded, setExpanded] = useState(false);
 
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'running':
-        return 'success';
-      case 'exited':
-        return 'error';
-      case 'paused':
-        return 'warning';
-      default:
-        return 'default';
-    }
-  };
-
   const getStatusIcon = (status: string) => {
     switch (status.toLowerCase()) {
       case 'running':
-        return <CheckCircleIcon />;
+        return <CheckCircleIcon sx={{ color: '#10b981' }} />;
       case 'exited':
-        return <ErrorIcon />;
+        return <CancelIcon sx={{ color: '#ef4444' }} />;
       default:
-        return <InfoIcon />;
+        return <InfoIcon sx={{ color: '#f59e0b' }} />;
     }
   };
 
@@ -150,16 +136,6 @@ const ContainerCard: React.FC<ContainerCardProps> = ({
                 {container.image}
               </Typography>
             </Box>
-            <Chip
-              label={container.state}
-              color={getStatusColor(container.state)}
-              size="small"
-              sx={{
-                fontWeight: 700,
-                fontSize: '0.75rem',
-                px: 1,
-              }}
-            />
           </Box>
 
           <Box
