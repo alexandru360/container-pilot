@@ -98,14 +98,14 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       
       - name: 📦 Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ContainerPilot.sln
         working-directory: ./src/ContainerPilot.Server
       
       # Placeholder pentru teste viitoare
       - name: 🧪 Run unit tests
         run: |
           echo "✓ Unit tests placeholder"
-          # dotnet test --no-restore --verbosity normal
+          # dotnet test ContainerPilot.sln --no-restore --verbosity normal
         working-directory: ./src/ContainerPilot.Server
       
       - name: 🔍 Code quality check
