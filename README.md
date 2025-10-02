@@ -1,307 +1,219 @@
-# Container Pilot 🐋✈️
+# Container Pilot 🚀
 
-[![Build and Push Docker image](https://github.com/alexandru360/container-pilot/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/alexandru360/container-pilot/actions/workflows/docker-publish.yml)
-[![CI](https://github.com/alexandru360/container-pilot/actions/workflows/ci.yml/badge.svg)](https://github.com/alexandru360/container-pilot/actions/workflows/ci.yml)
+[![CI Pipeline](https://github.com/alexandru360/container-pilot/actions/workflows/ci.yml/badge.svg)](https://github.com/alexandru360/container-pilot/actions/workflows/ci.yml)
+[![Docker Build](https://github.com/alexandru360/container-pilot/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/alexandru360/container-pilot/actions/workflows/docker-publish.yml)
+[![Release](https://github.com/alexandru360/container-pilot/actions/workflows/release.yml/badge.svg)](https://github.com/alexandru360/container-pilot/actions/workflows/release.yml)
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/alexandru360/container-pilot/actions/workflows/ci.yml)
 
-**Your co-pilot for Docker container management** - Aplicație Next.js pentru management complet al containerelor Docker cu interfață modernă și intuitivă.
+A modern, real-time Docker container management web interface with live updates, logs streaming, and container lifecycle control.
 
-## 🚀 Caracteristici
+## 📦 Docker Image
 
-- 🔄 **Update containere** - Actualizează toate containerele cu un singur click
-- ✅ **Check for updates** - Verifică dacă există versiuni noi pentru fiecare container
-- ▶️ **Start/Stop/Restart** - Control complet al containerelor
-- � **Container logs** - Vezi log-urile în timp real pentru fiecare container
-- 📊 **Status monitoring** - Monitorizează starea containerelor (running/stopped/paused)
-- 🎯 **Accordion interface** - Click pe numele containerului pentru detalii și log-uri
-- 🔌 **Real-time updates** - WebSocket pentru logs în timp real
-- 🎨 **Material-UI** - Interface modernă și responsivă
-- 🐋 **Suport flexibil** - Docker local (socket) sau remote (HTTP/HTTPS)
-
-## 📸 Preview
-
-### Interfața principală cu Accordion
-- **Header accordion**: Butonele Check Update, Start/Stop, Restart
-- **Click pe nume**: Expand pentru a vedea log-urile și detalii
-- **Status chips**: Culori diferite pentru running (verde), stopped (roșu), paused (portocaliu)
-- **Activity Logs**: Istoric cu toate operațiunile efectuate
-
-### Butoane disponibile (în header-ul acordeonului)
-1. **🔍 Check Update** - Verifică dacă există versiune nouă
-2. **▶️ Start** - Pornește containerul (doar dacă e oprit)
-3. **⏹️ Stop** - Oprește containerul (doar dacă e pornit)
-4. **🔄 Restart** - Restart container (doar dacă e pornit)
-
-## Variabile de Mediu
-
-### DOCKER_IMAGES (obligatoriu)
-Lista containerelor care trebuie actualizate, separate prin virgulă.
-
-**Exemplu:**
+**Pull the latest image:**
 ```bash
-DOCKER_IMAGES=lottery-nginx,lottery-dotnet,my-app
-```
-
-### DOCKER_HOST (opțional)
-Specifică engine-ul Docker care administrează containerele.
-
-**Valori acceptate:**
-- `http://IP:PORT` - Docker daemon remote via HTTP
-  ```bash
-  DOCKER_HOST=http://192.168.1.100:2375
-  ```
-- `https://IP:PORT` - Docker daemon remote via HTTPS  
-  ```bash
-  DOCKER_HOST=https://192.168.1.100:2376
-  ```
-- `unix:///path/to/socket` - Docker socket local
-  ```bash
-  DOCKER_HOST=unix:///var/run/docker.sock
-  ```
-- Dacă nu este specificat: folosește `/var/run/docker.sock` (default)
-
-## Utilizare în Unraid
-
-### Template Container Unraid
-
-#### Metoda 1: Cu Docker Socket (Recomandat)
-
-```
-Name: container-pilot
-Repository: ghcr.io/alexandru360/container-pilot:latest
-WebUI: http://[IP]:[PORT:3000]
-Port: 3000 -> 3000 (TCP)
-
-Path #1:
-  Name: Docker socket
-  Container Path: /var/run/docker.sock
-  Host Path: /var/run/docker.sock
-  Access Mode: Read/Write
-  Description: This is needed for Docker management
-
-Environment Variables:
-  - DOCKER_IMAGES: lottery-nginx,lottery-dotnet,lottery-tools
-  - NODE_ENV: production  (lowercase!)
-  - TZ: Europe/Athens
-
-Extra Parameters:
-  --privileged
-```
-
-#### Metoda 2: Cu Docker Remote API
-
-Dacă socket-ul nu funcționează, activează Docker Remote API:
-
-**Pași:**
-1. Mergi la **Settings** → **Docker** în Unraid
-2. Activează **Enable Remote API**
-3. Setează portul (default: 2375)
-4. Restart Docker service
-5. În template, NU adăuga path-ul pentru socket
-6. Adaugă variabila: `DOCKER_HOST=http://SERVER_IP:2375`
-
-```
-Environment Variables:
-  - DOCKER_IMAGES: lottery-nginx,lottery-dotnet,lottery-tools
-  - DOCKER_HOST: http://192.168.1.10:2375  (Înlocuiește cu IP-ul tău Unraid)
-  - NODE_ENV: production
-```
-
-### ⚠️ Notă Importantă despre NODE_ENV
-
-Folosește **`production`** (lowercase), NU `Production`! Next.js necesită exact această valoare.
-
-### De ce DOCKER_HOST?
-
-În Unraid, containerul poate avea restricții de permisiuni pentru socket-ul Docker local. Ai două opțiuni:
-
-1. **Socket Mount + --privileged** (mai simplu, mai rapid)
-   - Montează `/var/run/docker.sock`
-   - Adaugă `--privileged` în Extra Parameters
-   
-2. **Docker Remote API** (mai sigur pentru production)
-   - Activează Remote API în Settings
-   - Folosește `DOCKER_HOST=http://IP:2375`
-   - Nu necesită `--privileged`
-
-**Pași pentru activarea Docker Remote API în Unraid:**
-
-1. Mergi la **Settings** → **Docker**
-2. Activează **Enable Remote API**
-3. Setează portul (default: 2375)
-4. Restart Docker service
-5. Folosește `DOCKER_HOST=http://UNRAID_IP:2375` în container
-
-## Rulare Locală cu Podman
-
-```bash
-podman build -t container-pilot:latest .
-
-podman run -d \
-  -p 3000:3000 \
-  --privileged \
-  -v /run/podman/podman.sock:/var/run/docker.sock:Z \
-  -e "DOCKER_IMAGES=container1,container2,container3" \
-  -e "NODE_ENV=production" \
-  --name container-pilot \
-  container-pilot:latest
-```
-  -v /run/podman/podman.sock:/var/run/docker.sock:Z \
-  -e "DOCKER_IMAGES=lottery-nginx,lottery-dotnet" \
-```
-
-## Rulare cu Docker Compose
-
-```bash
-docker-compose up -d
-```
-
-## 📡 API Endpoints
-
-### GET `/api/config`
-Returnează lista containerelor configurate.
-
-### GET `/api/status`
-Returnează status-ul tuturor containerelor (running/stopped/paused/not-found).
-
-### POST `/api/check-update`
-Verifică dacă există update pentru un container specific.
-```json
-{
-  "containerId": "abc123"
-}
-```
-
-**Răspuns:**
-```json
-{
-  "success": true,
-  "containerId": "abc123",
-  "containerName": "my-app",
-  "currentImage": "my-image:latest",
-  "hasUpdate": true,
-  "updateAvailable": "available",
-  "message": "🆕 Update available! New version found."
-}
-```
-
-**Statusuri posibile:**
-- `available` - Update disponibil
-- `up-to-date` - La zi cu ultima versiune
-- `check-recommended` - Container vechi, verificare recomandată
-- `recently-created` - Container recent creat
-- `check-failed` - Nu s-a putut verifica
-
-### POST `/api/control`
-Start/Stop/Restart container.
-```json
-{
-  "containerId": "abc123",
-  "action": "start" // sau "stop", "restart"
-}
-```
-
-### GET `/api/logs`
-Returnează log-urile unui container.
-```
-/api/logs?containerId=abc123&lines=200
-```
-
-### POST `/api/update`
-Trigger update pentru toate containerele configurate (pull, stop, remove, recreate).
-
-### GET `/api/health`
-Health check endpoint.
-
-## Pull from GitHub Container Registry
-
-```bash
-# Latest version
 docker pull ghcr.io/alexandru360/container-pilot:latest
-
-# Specific version
-docker pull ghcr.io/alexandru360/container-pilot:1.1.0
 ```
 
-## Build
+**GitHub Container Registry:**
+- 🐳 [View on GitHub Packages](https://github.com/alexandru360/container-pilot/pkgs/container/container-pilot)
+- 📋 [All Available Tags](https://github.com/alexandru360/container-pilot/pkgs/container/container-pilot/versions)
+
+## ✨ Features
+
+- 🔄 **Real-time Updates** - Live container status with WebSocket connections
+- 📊 **Container Management** - Start, stop, restart containers with a click
+- 📝 **Live Logs** - Stream container logs in real-time
+- 🔍 **Update Detection** - Check for new image versions
+- ⬆️ **One-Click Updates** - Pull new images and recreate containers automatically
+- 🎨 **Modern UI** - Material-UI responsive design
+- 🔒 **Secure** - Direct Docker socket access, no external dependencies
+
+## 🚀 Quick Start
+
+### Docker Run
 
 ```bash
+docker run -d \
+  --name='container-pilot' \
+  -e 'DOCKER_IMAGES'='container1,container2,container3' \
+  -e 'NODE_ENV'='production' \
+  -p '3000:3000/tcp' \
+  -v '/var/run/docker.sock':'/var/run/docker.sock':'rw' \
+  --restart unless-stopped \
+  ghcr.io/alexandru360/container-pilot:latest
+```
+
+### Docker Compose
+
+```yaml
+version: '3.8'
+services:
+  container-pilot:
+    image: ghcr.io/alexandru360/container-pilot:latest
+    container_name: container-pilot
+    ports:
+      - "3000:3000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    environment:
+      - DOCKER_IMAGES=container1,container2,container3
+      - NODE_ENV=production
+    restart: unless-stopped
+```
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `DOCKER_IMAGES` | Comma-separated list of container names to manage | - | ✅ Yes |
+| `NODE_ENV` | Environment mode (`production` or `development`) | `development` | ❌ No |
+| `PORT` | Server port | `3000` | ❌ No |
+| `DOCKER_HOST` | Docker socket path or remote host | `/var/run/docker.sock` | ❌ No |
+
+### Example Configuration
+
+```bash
+# Multiple containers
+DOCKER_IMAGES=nginx,postgres,redis,app
+
+# Remote Docker host
+DOCKER_HOST=tcp://192.168.1.100:2375
+
+# Custom port
+PORT=8080
+```
+
+## 🏗️ Architecture
+
+- **Frontend**: Next.js 14 (App Router) + Material-UI
+- **Backend**: Node.js with custom server (server.js)
+- **Real-time**: Socket.IO for live updates
+- **Docker API**: Dockerode for container management
+- **Build**: Multi-stage Docker build for optimized images
+
+## 📖 API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/status` | GET | Get status of all configured containers |
+| `/api/logs` | GET | Fetch container logs |
+| `/api/control` | POST | Start/stop/restart containers |
+| `/api/check-update` | POST | Check if container image has updates |
+| `/api/update-container` | POST | Update container to latest image |
+| `/api/config` | GET | Get application configuration |
+| `/api/health` | GET | Health check endpoint |
+| `/api/socketio` | WS | WebSocket connection for real-time updates |
+
+## 🔧 Development
+
+### Prerequisites
+
+- Node.js 20+
+- Docker
+- npm or yarn
+
+### Local Development
+
+```bash
+# Clone repository
+git clone https://github.com/alexandru360/container-pilot.git
+cd container-pilot
+
+# Install dependencies
 npm install
-npm run build
-```
 
-## Development
+# Set environment variables
+export DOCKER_IMAGES=container1,container2
+export NODE_ENV=development
 
-```bash
+# Run development server
 npm run dev
 ```
 
-**Notă:** În dev mode, Socket.IO nu funcționează automat. Pentru testare completă, rulează:
+### Build Docker Image
+
 ```bash
-node server.js
+# Build image
+docker build -t container-pilot:local .
+
+# Run locally built image
+docker run -d \
+  -p 3000:3000 \
+  -v /var/run/docker.sock:/var/run/docker.sock:rw \
+  -e DOCKER_IMAGES=container1,container2 \
+  container-pilot:local
 ```
 
-## 🔧 Troubleshooting
+## 🧪 Testing
 
-### Eroare 500 pe /api/status
-
-Dacă vezi erori 500 în consolă și mesajul "No containers configured":
-
-**Verificări rapide:**
-1. Rulează script-ul de diagnosticare:
-   ```bash
-   # Linux/Mac
-   bash diagnose.sh
-   
-   # Windows
-   .\diagnose.ps1
-   ```
-
-2. Verifică variabilele de mediu:
-   ```bash
-   docker exec container-pilot sh -c 'echo $DOCKER_IMAGES'
-   ```
-
-3. Verifică dacă Docker socket este montat:
-   ```bash
-   docker exec container-pilot ls -la /var/run/docker.sock
-   ```
-
-**Cauze comune:**
-
-1. **DOCKER_IMAGES nu este setat** - Recreează containerul cu `-e DOCKER_IMAGES=container1,container2`
-2. **Docker socket nu este montat** - Adaugă `-v /var/run/docker.sock:/var/run/docker.sock`
-3. **Permisiuni insuficiente** - Adaugă `--privileged` sau configurează corect permisiunile
-
-**Documentație detaliată:**
-- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - Ghid complet de rezolvare probleme
-- [DEPLOYMENT-CHECKLIST.md](DEPLOYMENT-CHECKLIST.md) - Verificări pas cu pas
-
-### Log-uri
-
-Pentru a vedea log-urile complete:
 ```bash
-docker logs -f container-pilot
+# Run tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run linting
+npm run lint
 ```
 
-Caută linii care încep cu `[STATUS]` pentru informații de diagnosticare.
+## 📊 CI/CD
 
-## CI/CD
+This project uses GitHub Actions for:
+- **CI Pipeline**: Automated testing, linting, and Docker build verification
+- **Docker Build**: Multi-platform builds (amd64, arm64) on every push
+- **Release**: Automatic versioned releases with semantic versioning
 
-Proiectul folosește GitHub Actions pentru:
-- **Continuous Integration** - Build și test automat pe fiecare push/PR
-- **Docker Build & Push** - Publicare automată pe GHCR la push pe `main`
-- **Release Management** - Creare automată release la push de tag (`v*.*.*`)
+## 🤝 Contributing
 
-Vezi [.github/workflows/README.md](.github/workflows/README.md) pentru detalii.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Arhitectură
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-- **Next.js 14** - Framework React cu App Router
-- **Material-UI** - Componente UI
-- **Socket.IO** - WebSocket pentru logs în timp real
-- **dockerode** - Client Node.js pentru Docker API
-- **Custom server** - server.js integrează Socket.IO cu Next.js
+## 📝 License
 
-## Licență
+This project is licensed under the MIT License.
 
-MIT
+## 🐛 Troubleshooting
+
+### Container not found
+- Verify container names in `DOCKER_IMAGES` match exactly
+- Check Docker socket is mounted: `-v /var/run/docker.sock:/var/run/docker.sock:rw`
+
+### Permission denied
+- Ensure Docker socket has correct permissions
+- Container must run as root or user with Docker group access
+
+### 500 Internal Server Error
+- Check Docker socket is accessible
+- Verify `DOCKER_IMAGES` environment variable is set
+- Review container logs: `docker logs container-pilot`
+
+### WebSocket connection failed
+- Ensure port 3000 is accessible
+- Check firewall rules
+- Verify reverse proxy WebSocket support (if using one)
+
+## 📚 Additional Resources
+
+- [Docker Documentation](https://docs.docker.com/)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Material-UI Documentation](https://mui.com/)
+- [Socket.IO Documentation](https://socket.io/docs/)
+
+## 🙏 Acknowledgments
+
+- Built with [Next.js](https://nextjs.org/)
+- Styled with [Material-UI](https://mui.com/)
+- Docker integration via [Dockerode](https://github.com/apocas/dockerode)
+- Real-time updates with [Socket.IO](https://socket.io/)
+
+---
+
+Made with ❤️ by [alexandru360](https://github.com/alexandru360)
