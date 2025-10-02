@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Box } from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Box, Container } from '@mui/material';
 import { Docker as DockerIcon } from '@mui/icons-material';
 import ContainerList from './components/ContainerList';
 
@@ -33,9 +33,18 @@ function App() {
           </Toolbar>
         </AppBar>
 
-        <Box component="main" sx={{ flexGrow: 1 }}>
+        <Container 
+          maxWidth={false}
+          component="main" 
+          sx={{ 
+            flexGrow: 1,
+            width: { xs: '100%', sm: '95%', md: '90%', lg: '80%' },
+            mx: 'auto',
+            px: { xs: 2, sm: 3 }
+          }}
+        >
           <ContainerList />
-        </Box>
+        </Container>
 
         <Box
           component="footer"
