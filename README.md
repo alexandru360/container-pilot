@@ -50,15 +50,33 @@ version: '3.8'
 services:
   container-pilot:
     image: ghcr.io/alexandru360/container-pilot:latest
-    container_name: container-pilot
+    container_name: lottery-tools
     ports:
-      - "3000:3000"
+      - "8087:5000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
     environment:
-      - DOCKER_IMAGES=container1,container2,container3
-      - NODE_ENV=production
+      - ASPNETCORE_ENVIRONMENT=Production
+      - DockerImages=lottery-dotnet,lottery-nginx,lottery-tools
+      - DockerHost=unix:///var/run/docker.sock
+      - TZ=Europe/Athens
     restart: unless-stopped
+```
+
+### Unraid Docker Run
+
+For Unraid users, see [**UNRAID-DOCKER-RUN.md**](UNRAID-DOCKER-RUN.md) for the complete `docker run` command with all Unraid-specific labels and configurations.
+
+**Quick command:**
+```bash
+docker run -d \
+  --name='lottery-tools' \
+  -e 'DockerImages'='lottery-dotnet,lottery-nginx,lottery-tools' \
+  -e 'ASPNETCORE_ENVIRONMENT'='Production' \
+  -e TZ="Europe/Athens" \
+  -p '8087:5000/tcp' \
+  -v '/var/run/docker.sock':'/var/run/docker.sock':'rw' \
+  'ghcr.io/alexandru360/container-pilot:latest'
 ```
 
 ## ⚙️ Configuration
@@ -67,29 +85,30 @@ services:
 
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| `DOCKER_IMAGES` | Comma-separated list of container names to manage | - | ✅ Yes |
-| `NODE_ENV` | Environment mode (`production` or `development`) | `development` | ❌ No |
-| `PORT` | Server port | `3000` | ❌ No |
-| `DOCKER_HOST` | Docker socket path or remote host | `/var/run/docker.sock` | ❌ No |
+| `DockerImages` | Comma-separated list of container names to manage | - | ✅ Yes |
+| `ASPNETCORE_ENVIRONMENT` | Environment mode (`Production` or `Development`) | `Development` | ❌ No |
+| `DockerHost` | Docker socket path or remote host | `unix:///var/run/docker.sock` | ❌ No |
+| `TZ` | Timezone (e.g., `Europe/Athens`, `America/New_York`) | `UTC` | ❌ No |
 
 ### Example Configuration
 
 ```bash
 # Multiple containers
-DOCKER_IMAGES=nginx,postgres,redis,app
+DockerImages=nginx,postgres,redis,app
 
-# Remote Docker host
-DOCKER_HOST=tcp://192.168.1.100:2375
+# Remote Docker host (TCP)
+DockerHost=tcp://192.168.1.100:2375
 
-# Custom port
-PORT=8080
+# Different timezone
+TZ=America/New_York
 ```
 
 ## 🏗️ Architecture
 
-- **Frontend**: Next.js 14 (App Router) + Material-UI
-- **Backend**: Node.js with custom server (server.js)
-- **Real-time**: Socket.IO for live updates
+- **Backend**: ASP.NET Core 8.0 Web API
+- **Frontend**: React 18 + TypeScript with Vite
+- **Docker Integration**: Docker.DotNet library
+- **Logging**: Serilog structured logging
 - **Docker API**: Dockerode for container management
 - **Build**: Multi-stage Docker build for optimized images
 

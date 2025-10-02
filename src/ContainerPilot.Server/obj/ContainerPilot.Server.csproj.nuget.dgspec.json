@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Dev\\container-pilot-net\\src\\ContainerPilot.Server\\ContainerPilot.Server.csproj": {}
+    "D:\\Dev\\container-pilot\\src\\ContainerPilot.Server\\ContainerPilot.Server.csproj": {}
   },
   "projects": {
-    "D:\\Dev\\container-pilot-net\\src\\ContainerPilot.Server\\ContainerPilot.Server.csproj": {
+    "D:\\Dev\\container-pilot\\src\\ContainerPilot.Server\\ContainerPilot.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dev\\container-pilot-net\\src\\ContainerPilot.Server\\ContainerPilot.Server.csproj",
+        "projectUniqueName": "D:\\Dev\\container-pilot\\src\\ContainerPilot.Server\\ContainerPilot.Server.csproj",
         "projectName": "ContainerPilot.Server",
-        "projectPath": "D:\\Dev\\container-pilot-net\\src\\ContainerPilot.Server\\ContainerPilot.Server.csproj",
+        "projectPath": "D:\\Dev\\container-pilot\\src\\ContainerPilot.Server\\ContainerPilot.Server.csproj",
         "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-        "outputPath": "D:\\Dev\\container-pilot-net\\src\\ContainerPilot.Server\\obj\\",
+        "outputPath": "D:\\Dev\\container-pilot\\src\\ContainerPilot.Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

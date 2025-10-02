@@ -1,17 +1,16 @@
 services:
   container-pilot:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: container-pilot
+    image: ghcr.io/alexandru360/container-pilot:latest
+    container_name: lottery-tools
     ports:
-      - "5000:5000"
+      - "8087:5000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:rw
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - DockerImages=lottery-dotnet,lottery-nginx,lottery-tools
       - DockerHost=unix:///var/run/docker.sock
+      - TZ=Europe/Athens
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]

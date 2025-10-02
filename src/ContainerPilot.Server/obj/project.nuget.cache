@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4z1D0ltjW4o=",
+  "dgSpecHash": "aTtDofkc4hE=",
   "success": true,
-  "projectFilePath": "D:\\Dev\\container-pilot-net\\src\\ContainerPilot.Server\\ContainerPilot.Server.csproj",
+  "projectFilePath": "D:\\Dev\\container-pilot\\src\\ContainerPilot.Server\\ContainerPilot.Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Alex\\.nuget\\packages\\docker.dotnet\\3.125.15\\docker.dotnet.3.125.15.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\9.0.0\\microsoft.extensions.configuration.abstractions.9.0.0.nupkg.sha512",
